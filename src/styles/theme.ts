@@ -3,6 +3,7 @@ import { DefaultTheme } from '@emotion/react';
 const colors = {
   primary: '#DA7433', // cassette orange
   secondary: '#FFFFE0', // main button
+  tertiary: '#FCFCEE',
 
   kakaobtn: '#FFE54A',
   disabled: '#9C9C89',
