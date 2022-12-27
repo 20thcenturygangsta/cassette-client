@@ -20,7 +20,7 @@ const colors = {
   cassetteorange: '#DA7433',
   tangerine: '#E9A133',
   pink: '#F57797',
-  deeppink: 'D25860',
+  deeppink: '#D25860',
   purple: '#8C5488',
   lightgreen: '#ACB21B',
   olive: '#7C810B',
