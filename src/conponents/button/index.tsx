@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { MouseEventHandler, ReactNode } from 'react';
 import theme from 'styles/theme';
-import { buttonType } from 'types';
+import { ButtonType } from 'types';
 
 const mainButton = css`
   background-color: ${theme.colors.secondary};
@@ -58,7 +58,7 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLDivElement>;
   disabled?: boolean;
-  variant: buttonType;
+  variant: ButtonType;
 }
 
 const Button = ({ children, onClick, variant }: ButtonProps) => {
