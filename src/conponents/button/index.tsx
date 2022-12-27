@@ -33,6 +33,7 @@ export const ButtonLayout = styled.div<ButtonProps>`
   padding: 18px 0;
   font-weight: 700;
   line-height: 19px;
+  font-family: 'Pretendard-Regular';
 
   &:hover {
     cursor: pointer;
