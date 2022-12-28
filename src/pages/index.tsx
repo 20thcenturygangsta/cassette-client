@@ -1,6 +1,6 @@
-import Button from 'conponents/button';
-import ColorPlate from 'conponents/colorPlate';
-import Tape from 'conponents/tape';
+import Button from 'components/button';
+import ColorPlate from 'components/colorPlate';
+import Tape from 'components/tape';
 import Head from 'next/head';
 
 export default function Home() {
