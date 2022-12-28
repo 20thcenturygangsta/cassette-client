@@ -61,7 +61,7 @@ const Info = styled.div`
 
 const Tape = ({ text, date, sec }: TapeProps) => {
   const { tapeColor } = useStore();
-  console.log(tapeColor);
+
   return (
     <TypeStyle>
       <p>{text}</p>
