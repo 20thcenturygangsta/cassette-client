@@ -58,7 +58,7 @@ interface CircleProps {
 
 const Circle = ({ color }: CircleProps) => {
   const [checkedColor, setCheckedColor] = useState<Color>('cassetteorange');
-  const [isColorValue, setIsColorValue] = useState<boolean>(true);
+  const [isColorValue, setIsColorValue] = useState<boolean>(false);
 
   const { setTapeColor } = useStore();
 
@@ -75,7 +75,7 @@ const Circle = ({ color }: CircleProps) => {
 
   return (
     <Item>
-      <CircleStyle type="radio" name="color" color={color} value={color} checked={isColorValue} onChange={handleColorChange} />
+      <CircleStyle type="radio" name="color" color={color} value={color} checked={isColorValue} onChange={(event) => handleColorChange(event)} />
     </Item>
   );
 };
