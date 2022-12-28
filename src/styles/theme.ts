@@ -36,6 +36,7 @@ const fontSize = {
   md: '16px',
   sm: '14px',
   xs: '12px',
+  xxs: '6px',
 };
 
 export type ColorsTypes = typeof colors;
