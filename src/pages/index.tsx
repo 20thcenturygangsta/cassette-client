@@ -1,6 +1,6 @@
 import Button from 'components/button';
 import ColorPlate from 'components/colorPlate';
-import TapeSvg from 'components/tape';
+import Tape from 'components/tape';
 import Head from 'next/head';
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
         <div>목소리 남겨주기</div>
       </Button>
       <ColorPlate />
-      <TapeSvg title="나의 새로운 응원을 도전해줘!" date="21.01.01" sec="144" />
+      <Tape title="나의 새로운 응원을 도전해줘!" date="21.01.01" sec="144" />
     </div>
   );
 }

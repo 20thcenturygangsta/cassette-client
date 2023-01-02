@@ -3,14 +3,14 @@ import theme from 'styles/theme';
 
 import { TypeStyle } from './style';
 
-interface TapeSvgProps {
+interface TapeProps {
   title: string;
   date: string;
   sec?: string;
   width?: string;
 }
 
-const TapeSvg = ({ title, date, sec, width }: TapeSvgProps) => {
+const Tape = ({ title, date, sec, width }: TapeProps) => {
   const { tapeColor } = useStore();
 
   return (
@@ -243,4 +243,4 @@ const TapeSvg = ({ title, date, sec, width }: TapeSvgProps) => {
   );
 };
 
-export default TapeSvg;
+export default Tape;
