@@ -9,7 +9,7 @@ interface Store {
 
 export const useStore = create<Store>()(
   devtools((set) => ({
-    tapeColor: 'cassetteorange',
+    tapeColor: 'cassette_orange',
     setTapeColor: (value) => {
       set(() => ({ tapeColor: value }));
     },

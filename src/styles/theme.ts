@@ -17,12 +17,12 @@ const colors = {
   lightgray: '#BDBDBD', // 400
 
   // cassette color
-  cassetteorange: '#DA7433',
+  cassette_orange: '#DA7433',
   tangerine: '#E9A133',
   pink: '#F57797',
-  deeppink: '#D25860',
+  deep_pink: '#D25860',
   purple: '#8C5488',
-  lightgreen: '#ACB21B',
+  light_green: '#ACB21B',
   olive: '#7C810B',
   emerald: '#3ABEAB',
   ceruleanblue: '#74A3B5',
