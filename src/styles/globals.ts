@@ -22,6 +22,7 @@ export const global = css`
   }
   body {
     font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
   }
 
   button,
