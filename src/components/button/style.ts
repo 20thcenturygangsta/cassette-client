@@ -6,10 +6,15 @@ import { ButtonProps } from '.';
 
 const mainButton = css`
   background-color: ${theme.colors.primary};
+  color: ${theme.colors.black_900};
 `;
 
 const kakaoButton = css`
   background-color: ${theme.colors.login_kakao};
+  color: ${theme.colors.black_900};
+  div {
+    gap: 24px;
+  }
 `;
 
 const geustButton = css`
@@ -38,6 +43,13 @@ export const ButtonLayout = styled.div<ButtonProps>`
 
   &:hover {
     cursor: pointer;
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
   ${({ variant }) => {
