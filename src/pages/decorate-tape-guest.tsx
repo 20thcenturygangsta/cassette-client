@@ -20,7 +20,7 @@ const decorateTapeGuest = () => {
         <DecoZone css={{ gap: '136px' }}>
           <div>
             <p>
-              테이프 <span>안쪽 컬러</span>를 골라주세요!
+              테이프 <span>안쪽 색상</span>를 골라주세요!
             </p>
             <ColorPlate />
           </div>
