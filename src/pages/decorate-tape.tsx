@@ -2,7 +2,7 @@ import Button from 'components/button';
 import ColorPlate from 'components/colorPlate';
 import Tape from 'components/tape';
 import { useStore } from 'store';
-import { DecoContainer, DecoZone, Text } from 'styles/decorate-tape';
+import { DecoContainer, DecoZone } from 'styles/decorate-tape';
 import { Color } from 'types';
 
 export interface decorateTapeProps {
