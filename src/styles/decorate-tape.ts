@@ -17,7 +17,6 @@ export const DecoContainer = styled.div<decorateTapeProps>`
     margin: 0;
     color: ${theme.colors.white};
     display: inline-block;
-    width: 100%;
     font-weight: 400;
   }
 
@@ -30,15 +29,19 @@ export const DecoContainer = styled.div<decorateTapeProps>`
     font-family: 'Pretendard-Regular';
     font-weight: 700;
     font-size: ${theme.fontSize.lg};
-    padding-top: 20px;
-    width: 100%;
-    text-align: 'start';
-    padding-left: 24px;
+    padding: 20px 0 16px 0;
   }
 
   span {
     color: ${({ color }) => theme.colors[color]};
   }
+`;
+
+export const Text = styled.div`
+  display: flex;
+  width: 100%;
+  padding-left: 24px;
+  max-width: 245px;
 `;
 
 export const DecoZone = styled.div`
