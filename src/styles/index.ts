@@ -33,6 +33,7 @@ export const Container = styled.div`
 
   p {
     line-height: 24px;
+    font-size: ${theme.fontSize.lg};
   }
 `;
 
