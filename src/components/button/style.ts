@@ -11,8 +11,11 @@ const mainButton = css`
 
 const kakaoButton = css`
   background-color: ${theme.colors.login_kakao};
+  justify-content: flex-start;
   color: ${theme.colors.black_900};
+
   div {
+    padding-left: 36px;
     gap: 24px;
   }
 `;
