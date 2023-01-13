@@ -16,7 +16,7 @@ const guestEntry = () => {
           평소 전하지 못했던 마음을 <br /> 목소리로 담아보세요 ♡
         </p>
       </Zone>
-      <Zone css={{ paddingTop: ' 182px' }}>
+      <Zone css={{ paddingTop: ' 176px' }}>
         <Link href="/decorate-tape-guest" css={{ maxWidth: '327px' }}>
           <Button variant="guest">목소리 남겨주기</Button>
         </Link>
