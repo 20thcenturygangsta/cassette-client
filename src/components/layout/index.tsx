@@ -13,9 +13,8 @@ const Layout = ({ children }: LayoutProps) => {
       <Image
         src="/assets/backgroundImg.svg"
         alt="배경 이미지"
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
+        fill
+        style={{ objectFit: 'cover' }}
       />
       <Children>{children}</Children>
     </>
