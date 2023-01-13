@@ -35,7 +35,6 @@ const NavBar = ({ name }: NavBarProps) => {
         <Link href="#">
           <li>
             <Setting />
-
             <span>테이프 수정</span>
           </li>
         </Link>
@@ -58,7 +57,6 @@ const NavBar = ({ name }: NavBarProps) => {
           </li>
         </Link>
       </List>
-
       <Bottom>
         <Bar />
         <Link href="#">
