@@ -3,6 +3,7 @@ import theme from 'styles/theme';
 
 export const NavContainer = styled.div`
   width: 100%;
+  max-width: 280px;
   background-color: ${theme.colors.black_900};
   display: flex;
   flex-direction: column;
