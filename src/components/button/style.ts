@@ -13,6 +13,7 @@ const kakaoButton = css`
   background-color: ${theme.colors.login_kakao};
   justify-content: flex-start;
   color: ${theme.colors.black_900};
+  padding: 15px 0;
 
   div {
     padding-left: 36px;
@@ -37,7 +38,7 @@ export const ButtonLayout = styled.div<ButtonProps>`
   max-width: 327px;
   font-size: ${theme.fontSize.md};
   border-radius: 50px;
-  padding: 18px 0;
+  padding: 17.5px 0;
   font-weight: 700;
   line-height: 19px;
   font-family: 'Pretendard-Regular';
