@@ -4,14 +4,20 @@ import theme from 'styles/theme';
 import { TypeStyle } from './style';
 
 interface TapeProps {
-  title: string;
-  date: string;
+  title?: string;
+  date?: string;
   sec?: string;
   width?: string;
   height?: string;
 }
 
-const Tape = ({ title, date, sec, width, height = '170px' }: TapeProps) => {
+const Tape = ({
+  title = '',
+  date = '',
+  sec = '',
+  width,
+  height = '170px',
+}: TapeProps) => {
   const { tapeColor } = useStore();
 
   return (

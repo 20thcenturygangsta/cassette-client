@@ -26,7 +26,7 @@ const guide = () => {
         <ContentZone>
           <Content>
             <div>
-              <Tape width="27px" title="" date="" sec="" height="25px" />
+              <Tape width="27px" height="25px" />
               <h2>Voice Tape는 어떤 서비스예요?</h2>
             </div>
             <p>
@@ -38,7 +38,7 @@ const guide = () => {
           </Content>
           <Content>
             <div>
-              <Tape width="27px" title="" date="" sec="" height="25px" />
+              <Tape width="27px" height="25px" />
               <h2>Voice Tape는 어떻게 이용해요?</h2>
             </div>
             <ol>
@@ -59,7 +59,7 @@ const guide = () => {
           </Content>
           <Content>
             <div>
-              <Tape width="27px" title="" date="" sec="" height="25px" />
+              <Tape width="27px" height="25px" />
               <h2>Voice Tape를 매일 듣고 싶으신가요?</h2>
             </div>
             <p>
