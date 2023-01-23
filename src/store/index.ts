@@ -1,6 +1,6 @@
 import { Color } from 'types';
 import create from 'zustand';
-import { devtools } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 
 interface ColorStore {
   tapeColor: Color;
@@ -14,7 +14,7 @@ interface UserStore {
 }
 
 export const useColorStore = create<ColorStore>()(
-  devtools((set) => ({
+  persist((set) => ({
     tapeColor: 'cassette_orange',
     setTapeColor: (value) => {
       set(() => ({ tapeColor: value }));
@@ -23,10 +23,9 @@ export const useColorStore = create<ColorStore>()(
 );
 
 export const useUserStore = create<UserStore>()(
-  devtools((set) => ({
+  persist((set) => ({
     userNickname: '',
     tapename: '',
-
     setUserData: (userNickname, tapename) => {
       set(() => ({ userNickname, tapename }));
     },
