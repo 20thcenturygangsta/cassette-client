@@ -2,11 +2,12 @@ import Button from 'components/button';
 import Input from 'components/input';
 import Tape from 'components/tape';
 import Title from 'components/title';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
-import { useUserStore } from 'store';
-
-import { Box, Info, InputBox } from './styles';
+import { useColorStore, useUserStore } from 'store';
+import { Box, Info, InputBox } from 'styles/create-tape';
+import subInstance from 'utils/api/sub';
 
 const MAX_LENGTH = {
   NICKNAME: 5,
@@ -16,6 +17,7 @@ const CreateTape = () => {
   const [nickname, setNickname] = useState('');
   const [title, setTitle] = useState('');
   const { setUserData } = useUserStore();
+  const { tapeColor } = useColorStore();
 
   const handleChangeNickname = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setNickname(target.value);
@@ -26,6 +28,12 @@ const CreateTape = () => {
   };
 
   const router = useRouter();
+
+  const submit = () => {
+    subInstance
+      .createUserTape(nickname, title, tapeColor)
+      .then((data) => console.log(data));
+  };
 
   return (
     <Box>
@@ -61,15 +69,16 @@ const CreateTape = () => {
           ex&#41; 2023년 나의 새로운 도전을 응원해줘!
         </Info>
       </InputBox>
-
-      <Button
-        onClick={() => {
-          setUserData(nickname, title), router.push('/decorate-tape');
-        }}
-        variant="main"
-      >
-        작성 완료
-      </Button>
+      <Link href="/decorate-tape">
+        <Button
+          onClick={() => {
+            submit(), setUserData(nickname, title);
+          }}
+          variant="main"
+        >
+          작성 완료
+        </Button>
+      </Link>
     </Box>
   );
 };

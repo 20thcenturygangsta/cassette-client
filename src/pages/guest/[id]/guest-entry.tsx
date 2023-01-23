@@ -3,7 +3,7 @@ import Tape from 'components/tape';
 import Link from 'next/link';
 import { Container, Zone } from 'styles';
 
-const guestEntry = () => {
+const GuestEntry = () => {
   return (
     <Container>
       <Zone css={{ gap: '32px' }}>
@@ -25,4 +25,4 @@ const guestEntry = () => {
   );
 };
 
-export default guestEntry;
+export default GuestEntry;

@@ -9,7 +9,7 @@ export interface decorateTapeProps {
   color: Color;
 }
 
-const decorateTapeGuest = () => {
+const DecorateTapeGuest = () => {
   const { tapeColor } = useColorStore();
 
   return (
@@ -32,4 +32,4 @@ const decorateTapeGuest = () => {
   );
 };
 
-export default decorateTapeGuest;
+export default DecorateTapeGuest;
