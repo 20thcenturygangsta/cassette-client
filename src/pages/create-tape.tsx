@@ -3,11 +3,9 @@ import Input from 'components/input';
 import Tape from 'components/tape';
 import Title from 'components/title';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
-import { useColorStore, useUserStore } from 'store';
+import { useUserStore } from 'store';
 import { Box, Info, InputBox } from 'styles/create-tape';
-import subInstance from 'utils/api/sub';
 
 const MAX_LENGTH = {
   NICKNAME: 5,
@@ -17,7 +15,6 @@ const CreateTape = () => {
   const [nickname, setNickname] = useState('');
   const [title, setTitle] = useState('');
   const { setUserData } = useUserStore();
-  const { tapeColor } = useColorStore();
 
   const handleChangeNickname = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setNickname(target.value);
@@ -25,14 +22,6 @@ const CreateTape = () => {
 
   const handleChangeTitle = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setTitle(target.value);
-  };
-
-  const router = useRouter();
-
-  const submit = () => {
-    subInstance
-      .createUserTape(nickname, title, tapeColor)
-      .then((data) => console.log(data));
   };
 
   return (
@@ -72,7 +61,7 @@ const CreateTape = () => {
       <Link href="/decorate-tape">
         <Button
           onClick={() => {
-            submit(), setUserData(nickname, title);
+            setUserData(nickname, title);
           }}
           variant="main"
         >
