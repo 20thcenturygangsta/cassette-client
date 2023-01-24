@@ -4,7 +4,7 @@ import Tape from 'components/tape';
 import Title from 'components/title';
 import Link from 'next/link';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useUserStore } from 'store';
+import { useColorStore, useResponsUserStore, useUserStore } from 'store';
 import subInstance from 'utils/api/sub';
 
 import { Box, Info, InputBox } from '../styles/create-tape';
@@ -16,12 +16,25 @@ const MAX_LENGTH = {
 const ModifyTapeInfo = () => {
   const [nickname, setNickname] = useState('');
   const [title, setTitle] = useState('');
+  const { setUserData } = useUserStore();
+  const { setResponsUser } = useResponsUserStore();
+  const { setTapeColor } = useColorStore();
 
-  const { setUserData, userNickname, tapename } = useUserStore();
+  const [userName, setUserName] = useState<string>('');
+  const [userTapeName, setUserTapeName] = useState<string>('');
 
   useEffect(() => {
-    subInstance.getUserTape().then((data) => console.log(data));
-  }, []);
+    subInstance.getUserTape().then((data) => {
+      setUserName(data?.result?.slice(-1)[0]['name']);
+      setUserTapeName(data?.result?.slice(-1)[0]['title']);
+      setTapeColor(data?.result?.slice(-1)[0]['colorCode']);
+      setResponsUser(
+        data?.result?.slice(-1)[0]['tapeLink'],
+        data?.result?.slice(-1)[0]['id'],
+      );
+      console.log(data);
+    });
+  }, [setResponsUser, setTapeColor]);
 
   const handleChangeNickname = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setNickname(target.value);
@@ -34,10 +47,10 @@ const ModifyTapeInfo = () => {
   return (
     <Box>
       <Box margin="0 0 24px 0">
-        <Title name={userNickname} />
+        <Title name={userName} />
       </Box>
       <Box margin="0 0 44px 0">
-        <Tape title="2023 한정판 테이프" date="21.01.01" sec="144" />
+        <Tape title={userTapeName} date="21.01.01" sec="144" />
       </Box>
       <InputBox>
         <Input
@@ -45,7 +58,7 @@ const ModifyTapeInfo = () => {
           onChange={handleChangeNickname}
           label="카세트 주인장의 닉네임을 적어주세요."
           highlightWords={['닉네임']}
-          placeholder={userNickname}
+          placeholder={userName}
           maxLength={MAX_LENGTH.NICKNAME}
         />
       </InputBox>
@@ -56,7 +69,7 @@ const ModifyTapeInfo = () => {
           onChange={handleChangeTitle}
           label="테이프의 제목을 적어주세요."
           highlightWords={['테이프의 제목']}
-          placeholder={tapename}
+          placeholder={userTapeName}
           maxLength={MAX_LENGTH.TITLE}
         />
         <Info>
