@@ -27,12 +27,8 @@ const CreateTape = () => {
     setTitle(target.value);
   };
 
-  const router = useRouter();
-
   const submit = () => {
-    subInstance
-      .createUserTape(nickname, title, tapeColor)
-      .then((data) => console.log(data));
+    subInstance.createUserTape(nickname, title, tapeColor);
   };
 
   return (
