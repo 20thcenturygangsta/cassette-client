@@ -58,7 +58,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:18.2.0"],\
             ["react-query", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:3.39.2"],\
             ["react-voice-recorder", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:2.1.2"],\
-            ["typescript", "patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=701156"],\
+            ["typescript", "patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=bbeadb"],\
             ["zustand", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:4.1.5"]\
           ],\
           "linkType": "SOFT"\
@@ -6056,7 +6056,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:18.2.0"],\
             ["react-query", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:3.39.2"],\
             ["react-voice-recorder", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:2.1.2"],\
-            ["typescript", "patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=701156"],\
+            ["typescript", "patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=bbeadb"],\
             ["zustand", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:4.1.5"]\
           ],\
           "linkType": "SOFT"\
