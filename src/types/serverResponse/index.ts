@@ -4,50 +4,57 @@ export interface Login {
   result: {
     memberInformation: User;
     jwtInformation: Token;
-    tapes: [];
+    tapes: LoginTape[] | [];
   };
   message: string;
   timestamp: string;
 }
 
-export interface UserInfo {
-  result: User;
+export interface TapeResponse<T = Tape | User | Cassette[] | Token | Track> {
+  result: T;
   message: string;
   timestamp: string;
 }
 
-export interface TapeInfo {
-  result: Tape[];
-  message: string;
-  timestamp: string;
-}
-
-interface User {
+export interface User {
   name: string;
   email: string;
   socialLoginType: SocialLogin;
 }
 
-// TODO: refreshToken 없어지면 제거.
-interface Token {
+export interface Token {
   accessToken: string;
   refreshToken: string;
 }
 
-interface Tape {
+export interface Tape {
+  id: number;
+  colorCode: Color;
+  title: string;
+  name: string;
+  tapeLink: string;
+  fileName: null;
+  audioLink: null;
+}
+
+interface LoginTape extends Omit<Tape, 'fileName' | 'title'> {
+  tapeId: number;
   colorCode: Color;
   name: string;
   tapeLink: string;
-  fileName?: string;
-  audioLink?: string;
-  tracks?: Track[];
+  audioLink: null;
 }
 
-interface Track {
+export interface Cassette extends Tape {
+  tracks: Track[];
+}
+
+export interface Track {
   trackId: number;
   tapeId: number;
+  colorCode: Color;
+  title: string;
   name: string;
-  senderName: string;
   fileName: string;
   audioLink: string;
 }
