@@ -2,6 +2,7 @@ import Button from 'components/button';
 import Input from 'components/input';
 import Tape from 'components/tape';
 import Title from 'components/title';
+import { TitleName, TitleWrapper } from 'components/title/styles';
 import Link from 'next/link';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useColorStore, useResponsUserStore, useUserStore } from 'store';
@@ -47,7 +48,9 @@ const ModifyTapeInfo = () => {
   return (
     <Box>
       <Box margin="0 0 24px 0">
-        <Title name={userName} />
+        <TitleWrapper>
+          <TitleName color={'white'}>{userName}</TitleName>&apos;s Tape
+        </TitleWrapper>
       </Box>
       <Box margin="0 0 44px 0">
         <Tape title={userTapeName} date="21.01.01" sec="144" />
