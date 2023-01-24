@@ -12,7 +12,7 @@ const CreateTapeCompleted = () => {
         <Title name="게스트" color={theme.colors.white} />
       </Box>
       <Box margin="0 0 44px 0">
-        <Tape title="2023 한정판 테이프" date="21.01.01" sec="144" />
+        <Tape title="2023 한정판 테이프" date="21.01.01" sec="144" hasAudio />
       </Box>
 
       <Button

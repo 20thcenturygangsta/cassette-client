@@ -10,6 +10,7 @@ export interface TapeSvgProps {
 }
 const TapeSvg = ({ title, date, sec, width }: TapeSvgProps) => {
   const { tapeColor } = useColorStore();
+
   return (
     <svg
       width={width}

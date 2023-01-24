@@ -32,6 +32,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/css", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:11.10.5"],\
             ["@emotion/react", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:11.10.5"],\
             ["@emotion/styled", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:11.10.5"],\
+            ["@iconify/react", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:4.0.1"],\
             ["@svgr/webpack", "npm:6.5.1"],\
             ["@types/cookie", "npm:0.5.1"],\
             ["@types/node", "npm:18.11.17"],\
@@ -4004,6 +4005,38 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@iconify/react", [\
+        ["npm:4.0.1", {\
+          "packageLocation": "./.yarn/cache/@iconify-react-npm-4.0.1-f06744c50d-db4d991b81.zip/node_modules/@iconify/react/",\
+          "packageDependencies": [\
+            ["@iconify/react", "npm:4.0.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:4.0.1", {\
+          "packageLocation": "./.yarn/__virtual__/@iconify-react-virtual-8a31f92a63/0/cache/@iconify-react-npm-4.0.1-f06744c50d-db4d991b81.zip/node_modules/@iconify/react/",\
+          "packageDependencies": [\
+            ["@iconify/react", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:4.0.1"],\
+            ["@iconify/types", "npm:2.0.0"],\
+            ["@types/react", "npm:18.0.26"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@iconify/types", [\
+        ["npm:2.0.0", {\
+          "packageLocation": "./.yarn/cache/@iconify-types-npm-2.0.0-faa2398199-029f58542c.zip/node_modules/@iconify/types/",\
+          "packageDependencies": [\
+            ["@iconify/types", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@jridgewell/gen-mapping", [\
         ["npm:0.1.1", {\
           "packageLocation": "./.yarn/cache/@jridgewell-gen-mapping-npm-0.1.1-3bad172ac6-3bcc21fe78.zip/node_modules/@jridgewell/gen-mapping/",\
@@ -6030,6 +6063,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/css", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:11.10.5"],\
             ["@emotion/react", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:11.10.5"],\
             ["@emotion/styled", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:11.10.5"],\
+            ["@iconify/react", "virtual:1639ec265eab04cb5bd53e88e452648589997b69442f4cf054dd7858e2048b885d5529568b38bb2c19667f248a065f3e0fb3d4957edc1bcde7217ab8893a7da4#npm:4.0.1"],\
             ["@svgr/webpack", "npm:6.5.1"],\
             ["@types/cookie", "npm:0.5.1"],\
             ["@types/node", "npm:18.11.17"],\
