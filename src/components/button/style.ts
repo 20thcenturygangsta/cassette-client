@@ -16,8 +16,8 @@ const kakaoButton = css`
   padding: 15px 0;
 
   div {
-    padding-left: 36px;
-    gap: 24px;
+    padding-left: 24px;
+    gap: 72px;
   }
 `;
 

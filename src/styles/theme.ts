@@ -18,7 +18,7 @@ const colors = {
   mint: '#4DFFEB',
 
   color_pallet: '#FCFCEE',
-  login_kakao: '#FFE54A',
+  login_kakao: '#FEE500',
   disabled: '#9C9C89', // main_50%
   warning_red: '#B91919',
   record_red: '#CD0E00',
@@ -41,6 +41,7 @@ const fontSize = {
   xl: '24px',
   lg: '20px',
   md: '16px',
+  smd: '15px',
   sm: '14px',
   xs: '12px',
 };
