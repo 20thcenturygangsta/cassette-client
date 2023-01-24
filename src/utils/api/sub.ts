@@ -1,13 +1,17 @@
 import { Color } from 'types';
+import { Cassette, Tape, TapeResponse } from 'types/serverResponse';
 
 import instance from './core';
 
-const getUserTape = () => instance({ url: `/api/v1/tape` });
+const getUserTape = () =>
+  instance<TapeResponse<Cassette[]>, TapeResponse<Cassette[]>>({
+    url: `/api/v1/tape`,
+  });
 
 const getGuestTape = (id: number) => instance({ url: `/api/v1/tape${id}` });
 
 const createUserTape = (title: string, name: string, colorCode: Color) => {
-  return instance({
+  return instance<TapeResponse<Tape>, TapeResponse<Tape>>({
     method: 'post',
     url: `/api/v1/tape`,
     data: {
@@ -24,7 +28,7 @@ const modifyUseTape = (
   title: string,
   name: string,
 ) => {
-  return instance({
+  return instance<TapeResponse<Tape>, TapeResponse<Tape>>({
     method: 'put',
     url: `/api/v1/tape/${id}`,
     data: {
