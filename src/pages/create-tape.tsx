@@ -30,7 +30,11 @@ const CreateTape = () => {
         <Title name="닉네임" />
       </Box>
       <Box margin="0 0 44px 0">
-        <Tape title="2023 한정판 테이프" date="21.01.01" sec="144" />
+        <Tape
+          title="테이프의 제목이 여기에 적혀요!"
+          date="21.01.01"
+          sec="144"
+        />
       </Box>
       <InputBox>
         <Input
