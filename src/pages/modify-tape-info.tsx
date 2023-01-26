@@ -1,7 +1,6 @@
 import Button from 'components/button';
 import Input from 'components/input';
 import Tape from 'components/tape';
-import Title from 'components/title';
 import { TitleName, TitleWrapper } from 'components/title/styles';
 import Link from 'next/link';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -33,7 +32,6 @@ const ModifyTapeInfo = () => {
         data?.result?.slice(-1)[0]['tapeLink'],
         data?.result?.slice(-1)[0]['id'],
       );
-      console.log(data);
     });
   }, [setResponsUser, setTapeColor]);
 
