@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Color } from 'types';
 import { Cassette, Tape, TapeResponse } from 'types/serverResponse';
 
@@ -10,7 +11,7 @@ const getUserTape = () =>
 
 const getGuestTape = (id: number) => instance({ url: `/api/v1/tape${id}` });
 
-const createUserTape = (title: string, name: string, colorCode: Color) => {
+const createUserTape = (colorCode: Color, title: string, name: string) => {
   return instance<TapeResponse<Tape>, TapeResponse<Tape>>({
     method: 'post',
     url: `/api/v1/tape`,
@@ -44,6 +45,25 @@ const downloadTape = (id: number) =>
 
 const getUserTrack = (id: number) => instance({ url: `/api/v1/track/${id}` });
 
+const getOwnerTape = (tapeLink: string) =>
+  axios
+    .get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/tape/${tapeLink}`)
+    .then((data) => data.data);
+
+const createTrack = (
+  colorCode: Color,
+  title: string,
+  name: string,
+  tapeLink: string,
+  file: string,
+) => {
+  return axios({
+    method: 'post',
+    url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/track`,
+    data: { data: { colorCode, title, name, tapeLink }, file },
+  });
+};
+
 const subInstance = {
   getUserTape,
   getGuestTape,
@@ -51,6 +71,8 @@ const subInstance = {
   modifyUseTape,
   downloadTape,
   getUserTrack,
+  getOwnerTape,
+  createTrack,
 };
 
 export default subInstance;
