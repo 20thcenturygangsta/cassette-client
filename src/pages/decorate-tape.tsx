@@ -7,7 +7,7 @@ import { DecoContainer, DecoZone } from 'styles/decorate-tape';
 import { Color } from 'types';
 import subInstance from 'utils/api/sub';
 
-export interface decorateTapeProps {
+export interface DecorateTapeProps {
   color: Color;
 }
 
@@ -18,7 +18,7 @@ const DecorateTape = () => {
 
   const submit = () => {
     subInstance
-      .createUserTape(userNickname, tapename, tapeColor)
+      .createUserTape(tapeColor, tapename, userNickname)
       .then((data) => {
         setResponsUser(data.result.tapeLink);
         setTapeColor(data.result.colorCode);
