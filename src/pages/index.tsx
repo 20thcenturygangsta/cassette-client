@@ -12,7 +12,7 @@ export default function Home() {
       <Zone css={{ gap: '32px' }}>
         <div>
           <h1>2023 Vioce Tape</h1>
-          <h3>내 목소리가 들리니?</h3>
+          <h3>테이프에 담은 내 마음</h3>
         </div>
         <Tape
           title="2023 한정판 테이프"

@@ -42,7 +42,7 @@ const GuestEntry = () => {
           <Zone css={{ gap: '32px' }}>
             <div>
               <h1>{ownerName}&apos;s Tape</h1>
-              <h3>나의 새로운 도전을 응원해줘!</h3>
+              <h3>{ownerTapeTitle}</h3>
             </div>
             <Tape
               title={ownerTapeTitle}
