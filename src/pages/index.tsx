@@ -1,9 +1,8 @@
+import Kakao from '@icon/kakao.svg';
 import Button from 'components/button';
 import Tape from 'components/tape';
 import Link from 'next/link';
 import { Container, Zone } from 'styles';
-
-import Kakao from '../../public/assets/kakao.svg';
 
 export default function Home() {
   const LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_REST_API}&redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_URL}/kakao/bridge`;
@@ -12,9 +11,14 @@ export default function Home() {
       <Zone css={{ gap: '32px' }}>
         <div>
           <h1>2023 Vioce Tape</h1>
-          <h3>내 목소리가 들리니?</h3>
+          <h3>테이프에 담은 내 마음</h3>
         </div>
-        <Tape title="2023 한정판 테이프" date="21.01.01" sec="144" />
+        <Tape
+          title="2023 한정판 테이프"
+          date="21.01.01"
+          sec="144"
+          color="cassette_orange"
+        />
         <p>
           평소 전하지 못했던 마음을
           <br /> 목소리로 담아보세요 ♡
@@ -27,7 +31,7 @@ export default function Home() {
             카카오 로그인
           </Button>
         </Link>
-        <Link href="/create-tape" css={{ maxWidth: '327px' }}>
+        <Link href={LOGIN_URL} css={{ maxWidth: '327px' }}>
           <Button variant="main">내 테이프 만들기</Button>
         </Link>
       </Zone>
