@@ -1,3 +1,4 @@
-mkdir output
-cp -R ./[cassette-client]/* ./output
-cp -R ./output ./[cassette-client]/
+cd ../
+md output
+xcopy /e ./[cassette-client] ./output
+xcopy /e ./output ./[cassette-client]
