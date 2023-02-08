@@ -5,14 +5,31 @@ import Tape from 'components/tape';
 import Title from 'components/title';
 import { useState } from 'react';
 import theme from 'styles/theme';
+import subInstance from 'utils/api/sub';
 
 import { Box } from '../styles/create-tape';
 
 const ListenTape = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [blob, setBlob] = useState<Blob>();
 
   const sendTape = () => {
-    setModalOpen(true);
+    const formData = new FormData();
+    console.log(blob);
+    if (blob) {
+      //const file = new File([blob], 'fileName', { type: 'audio/webm' });
+      formData.append('audio', blob, 'audio.wav');
+      console.log('blob', blob);
+      console.log(formData);
+
+      subInstance
+        .createTrack('cassette_blue', 'jjjjjjjjj', '', '', formData)
+        .then(() => {
+          setModalOpen(true);
+        });
+    }
+
+    console.log({ blob });
   };
 
   const closeModal = () => setModalOpen(false);
@@ -42,7 +59,13 @@ const ListenTape = () => {
         <Title name="게스트" color={theme.colors.white} />
       </Box>
       <Box margin="0 0 44px 0">
-        <Tape title="2023 한정판 테이프" date="21.01.01" sec="144" />
+        <Tape
+          title="2023 한정판 테이프"
+          date="21.01.01"
+          sec="144"
+          hasAudio
+          setAudio={setBlob}
+        />
       </Box>
 
       <Button onClick={sendTape} variant="main">

@@ -28,7 +28,7 @@ const DecorateTapeGuest = () => {
             </p>
             <ColorPlate isOwner={false} />
           </div>
-          <Link href="create-tape-completed">
+          <Link href="/create-tape-completed">
             <Button variant="main">꾸미기 완료</Button>
           </Link>
         </DecoZone>

@@ -37,7 +37,7 @@ const DecorateTape = () => {
             </p>
             <ColorPlate />
           </div>
-          <Link href="create-tape-completed">
+          <Link href="/create-tape-completed">
             <Button variant="main" onClick={() => submit()}>
               꾸미기 완료
             </Button>
