@@ -15,7 +15,7 @@ jobs:
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
       - name: Debugging step
-        run: ls -la output
+        run: dir /s/b output
       - name: creates output
         run: sh ./build.sh
       - name: Pushes to another repository
