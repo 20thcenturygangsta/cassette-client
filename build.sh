@@ -1,4 +1,4 @@
-cd ..\
+cd ..
 md output
-xcopy /e ./[cassette-client] ./output
-xcopy /e ./output ./[cassette-client]
+copy .[cassette-client]* .\output
+copy .\output .[cassette-client]\
