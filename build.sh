@@ -1,4 +1,4 @@
-cd ..
-md output
-copy .[cassette-client]* .\output
-copy .\output .[cassette-client]\
+cd ../
+mkdir output
+cp -R .cassette-client* ./output
+cp -R ./output .cassette-client/
