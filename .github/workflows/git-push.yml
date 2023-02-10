@@ -32,8 +32,8 @@ jobs:
           destination-github-username: Kimkyungmin123
           destination-repository-name: cassette
           user-email: rud3302@naver.com
-          commit-message: push to ${{ github.head_ref }}
-          target-branch: ${{ github.head_ref}}
+          commit-message: push to $(echo $GITHUB_REF | cut -d'/' -f 3)
+          target-branch: $(echo $GITHUB_REF | cut -d'/' -f 3)
 
       - name: Test exported variable
         run: echo $DESTINATION_CLONED_DIRECTORY
