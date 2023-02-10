@@ -55,3 +55,4 @@ jobs:
           target-branch: ${{ github.base_ref }}
 
       - name: Test exported variable
+        run: echo $DESTINATION_CLONED_DIRECTORY
