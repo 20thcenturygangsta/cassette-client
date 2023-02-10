@@ -32,7 +32,7 @@ jobs:
           destination-github-username: Kimkyungmin123
           destination-repository-name: cassette
           user-email: rud3302@naver.com
-          commit-message: push to ${{ github.refs.heads.branches }} branch
+          commit-message: push to ${{ github.refs.heads.branches }}
           target-branch: ${{ github.refs.heads.branches }}
 
       - name: Test exported variable
