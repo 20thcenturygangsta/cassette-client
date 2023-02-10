@@ -38,7 +38,7 @@ jobs:
 
       - name: pull_request to repository
         if: ${{ github.event_name }} == 'pull_request'
-        id: push_directory
+        id: pull_request_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
