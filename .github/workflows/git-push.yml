@@ -1,6 +1,6 @@
 on:
   push:
-    branches: ['main', 'develop']
+    branches: ['main']
   pull_request:
     branches: ['develop']
 
@@ -32,8 +32,12 @@ jobs:
           destination-github-username: Kimkyungmin123
           destination-repository-name: cassette
           user-email: rud3302@naver.com
-          commit-message: push to ${{ github.ref_name}}
-          target-branch: ${{ github.ref_name }}
+          if: ${{ github.event_name == 'pull_request' }}
+            commit-message: push to develop
+            target-branch: develop
+          if: ${{ github.event_name == 'push' }}
+            commit-message: push to main
+            target-branch: main
 
       - name: Test exported variable
         run: echo $DESTINATION_CLONED_DIRECTORY
