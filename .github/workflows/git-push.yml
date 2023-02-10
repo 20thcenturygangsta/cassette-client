@@ -1,20 +1,25 @@
-name: git push into another repo to deploy to vercel
-
 on:
   push:
+    branches: ['main', 'develop']
+  pull_request:
     branches: ['develop']
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container: pandoc/latex
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Install mustache (to update the date)
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install mustache
         run: apk add ruby && gem install mustache
-      - name: creates output
+
+      - name: Create output
         run: sh ./build.sh
-      - name: Pushes to another repository
+
+      - name: Push to repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:
@@ -27,7 +32,8 @@ jobs:
           destination-github-username: Kimkyungmin123
           destination-repository-name: cassette
           user-email: rud3302@naver.com
-          commit-message: push-to-main-repo
-          target-branch: main
-      - name: Test get variable exported by push-to-another-repository
+          commit-message: push to ${{ github.head_ref }}
+          target-branch: ${{ github.head_ref}}
+
+      - name: Test exported variable
         run: echo $DESTINATION_CLONED_DIRECTORY
