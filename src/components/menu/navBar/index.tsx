@@ -1,6 +1,6 @@
 import Close from '@icon/close.svg';
 import Document from '@icon/document.svg';
-import DownLoad from '@icon/downLoad.svg';
+import DownLoad from '@icon/download.svg';
 import KakaoLogin from '@icon/kakaoLogin.svg';
 import Logout from '@icon/logout.svg';
 import Setting from '@icon/setting.svg';
@@ -32,6 +32,7 @@ const NavBar = ({ name, isOpen, status }: NavBarProps) => {
     <NavContainer status={status}>
       <ButtonLayout
         variant="clear"
+        as="button"
         onClick={isOpen}
         css={{
           padding: '0px',
@@ -84,6 +85,7 @@ const NavBar = ({ name, isOpen, status }: NavBarProps) => {
           css={{ cursor: 'pointer' }}
           onClick={() => {
             removeAuthToken('accessToken');
+            removeAuthToken('refreshToken');
             route.push('/');
           }}
         >
