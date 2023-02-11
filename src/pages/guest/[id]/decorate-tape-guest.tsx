@@ -22,7 +22,6 @@ const DecorateTapeGuest = () => {
       <DecoZone css={{ gap: '24px', paddingTop: '113px' }}>
         <h3>{userNickname}&apos;s Tape</h3>
         <TapeSVG title={tapename} date="21.01.01" sec="144" isOwner={false} />
-
         <DecoZone>
           <Middie>
             <div>
