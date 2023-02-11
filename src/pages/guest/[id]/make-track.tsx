@@ -4,12 +4,11 @@ import ModalPortal from 'components/modal/portal';
 import Tape from 'components/tape';
 import Title from 'components/title';
 import { useState } from 'react';
+import { Box } from 'styles/create-tape';
 import theme from 'styles/theme';
 import subInstance from 'utils/api/sub';
 
-import { Box } from '../styles/create-tape';
-
-const ListenTape = () => {
+const makeTrack = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [blob, setBlob] = useState<Blob>();
 
@@ -25,7 +24,7 @@ const ListenTape = () => {
       subInstance
         .createTrack('cassette_blue', 'jjjjjjjjj', '', '', formData)
         .then(() => {
-          setModalOpen(true);
+          // setModalOpen(true);
         });
     }
 
@@ -35,7 +34,7 @@ const ListenTape = () => {
   const closeModal = () => setModalOpen(false);
 
   return (
-    <div>
+    <div css={{ padding: '163px 24px 0 24px  ' }}>
       <ModalPortal closeModal={closeModal}>
         {modalOpen && (
           <Modal
@@ -68,11 +67,17 @@ const ListenTape = () => {
         />
       </Box>
 
-      <Button onClick={sendTape} variant="main">
+      <Button
+        onClick={
+          () => setModalOpen(true)
+          //sendTape
+        }
+        variant="main"
+      >
         테이프 전송하기
       </Button>
     </div>
   );
 };
 
-export default ListenTape;
+export default makeTrack;
