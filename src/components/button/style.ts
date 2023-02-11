@@ -8,8 +8,8 @@ const mainButton = css`
   background-color: ${theme.colors.primary};
   color: ${theme.colors.black_900};
 
-  div {
-    grid-gap: 8px;
+  svg {
+    padding-right: 8px;
   }
 `;
 
