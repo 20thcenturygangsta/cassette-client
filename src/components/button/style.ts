@@ -51,7 +51,7 @@ export const ButtonLayout = styled.div<ButtonProps>`
     variant === 'guest' ? color && theme.colors[color] : null};
 
   &:hover {
-    cursor: pointer;
+    cursor: ${({ disabled }) => (disabled ? 'default' : ' pointer')};
   }
 
   div {
