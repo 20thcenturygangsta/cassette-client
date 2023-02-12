@@ -14,7 +14,7 @@ const MAX_LENGTH = {
 const CreateTape = () => {
   const [nickname, setNickname] = useState('');
   const [title, setTitle] = useState('');
-  const { setUserData } = useUserStore();
+  const { setUserData, date } = useUserStore();
 
   const handleChangeNickname = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setNickname(target.value);
@@ -30,11 +30,7 @@ const CreateTape = () => {
         <Title name="닉네임" />
       </Box>
       <Box margin="0 0 44px 0">
-        <TapeSVG
-          title="테이프의 제목이 여기에 적혀요!"
-          date="21.01.01"
-          sec="144"
-        />
+        <TapeSVG title="테이프의 제목이 여기에 적혀요!" date={date} sec="144" />
       </Box>
       <InputBox>
         <Input

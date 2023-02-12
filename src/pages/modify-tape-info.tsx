@@ -21,7 +21,7 @@ const MAX_LENGTH = {
 const ModifyTapeInfo = () => {
   const [nickname, setNickname] = useState('');
   const [title, setTitle] = useState('');
-  const { setUserData, userNickname } = useUserStore();
+  const { setUserData, userNickname, date } = useUserStore();
   const { setResponsUser } = useResponsUserStore();
   const { setTapeColor } = useColorStore();
   const [userName, setUserName] = useState<string>('');
@@ -60,7 +60,7 @@ const ModifyTapeInfo = () => {
           </TitleWrapper>
         </Box>
         <Box margin="0 0 44px 0">
-          <TapeSVG title={userTapeName} date="21.01.01" sec="144" />
+          <TapeSVG title={userTapeName} date={date} sec="144" />
         </Box>
         <InputBox>
           <Input
