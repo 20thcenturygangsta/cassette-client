@@ -35,6 +35,7 @@ const Bridge = () => {
         height: '100%',
         display: 'flex',
         justifyContent: 'cneter',
+        alignItems: 'center',
       }}
     >
       <Roading />
