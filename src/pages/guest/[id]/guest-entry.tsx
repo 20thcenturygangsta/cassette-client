@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useGuestResponsStore } from 'store';
 import { Container, Zone } from 'styles';
-import theme from 'styles/theme';
 import { Color } from 'types';
 import subInstance from 'utils/api/sub';
 
@@ -63,7 +62,8 @@ const GuestEntry = () => {
             </Link>
           </Zone>
         </Container>
-      ) : null}
+      ) : //TODO: 탈퇴한 유저 링크 들어갔을 때 처리
+      null}
     </>
   );
 };

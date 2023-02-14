@@ -3,6 +3,7 @@ import Copy from '@icon/copy.svg';
 import Button from 'components/button';
 import MenuLayout from 'components/menu';
 import Tape from 'components/tape';
+import TapeSVG from 'components/tape/tape';
 import Title from 'components/title';
 import ToastUI from 'components/Toast';
 import useCopy from 'hooks/useCopy';
@@ -24,8 +25,8 @@ import {
 
 const CreateTapeCompleted = () => {
   const { setResponsUser, userURL } = useResponsUserStore();
-  const { userNickname, tapename, setUserData } = useUserStore();
-  const { tapeColor, setTapeColor } = useColorStore();
+  const { userNickname, tapename, setUserData, date } = useUserStore();
+  const { setTapeColor } = useColorStore();
   const [isCopied, onCopy] = useCopy();
   const [onToast, setOnToast] = useState<boolean>(true);
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -51,14 +52,14 @@ const CreateTapeCompleted = () => {
 
   // TODO: server, client tape fill 매치되지 않는 에러 해결하기
   return (
-    <div css={{ padding: '0 24px' }}>
+    <div css={{ padding: '93px 24px 0 24px' }}>
       <MenuLayout name={userNickname} />
       <Box margin="0 0 24px 0">
         <Title name={userNickname} color={theme.colors.white} />
       </Box>
       <Box margin="0 0 44px 0">
         <TrackBox isShown={tracks.length > 3}>
-          <Tape title={tapename} date="21.01.01" sec="144" />
+          <TapeSVG title={tapename} date={date} sec="144" />
         </TrackBox>
       </Box>
       <TrackContainer>
