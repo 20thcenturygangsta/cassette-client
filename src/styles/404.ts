@@ -5,7 +5,7 @@ import theme from './theme';
 
 export const Container404 = styled.div`
   color: ${theme.colors.white};
-  margin-top: 202px;
+  margin: 202px 24px 0 24px;
 
   h1,
   p {
