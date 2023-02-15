@@ -24,6 +24,10 @@ export const Container404 = styled.div`
     align-items: center;
   }
 
+  p {
+    margin: 16px 0 64px 0;
+  }
+
   svg {
     padding-bottom: 16px;
   }
