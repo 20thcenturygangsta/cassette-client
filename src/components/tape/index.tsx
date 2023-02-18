@@ -1,12 +1,14 @@
 import { Icon } from '@iconify/react';
+import AudioPlayer from 'components/audio';
 import useAudio from 'hooks/useAudio';
 import { Dispatch, useEffect, useRef, useState } from 'react';
 import { useAudioRecorder } from 'react-audio-voice-recorder';
+import { useRecord } from 'store';
 
 import {
   AudioContainer,
   ClearButton,
-  RecordContainer,
+  RecordButtonZone,
   RecordingContainer,
   Time,
   TypeStyle,
@@ -31,9 +33,11 @@ const Tape = ({
   setAudio,
 }: TapeProps) => {
   const { playing, toggle } = useAudio(audioLink ?? '');
+  const { setRecordFile } = useRecord();
 
   const recordRef = useRef<null | HTMLDivElement>(null);
   const [isRecorded, setIsRecorded] = useState(false);
+  const [url, setUrl] = useState<string>('');
   const {
     startRecording,
     stopRecording,
@@ -42,19 +46,24 @@ const Tape = ({
     recordingTime,
   } = useAudioRecorder();
 
-  const addAudioElement = (blob: any) => {
+  const addAudioFile = (blob: Blob) => {
     if (!blob) return;
+    console.log('blob!!', blob);
     const url = URL.createObjectURL(blob);
-    const audio = document.createElement('audio');
-    audio.src = url;
-    audio.controls = true;
+    const formData = new FormData();
+    formData.append('audio', blob, 'audio.wav');
+
+    console.log('formData', formData);
+    setUrl(url);
+    setRecordFile(url);
 
     if (!recordRef.current) return;
     if (recordRef.current.querySelector('audio')) return;
 
     setAudio?.(blob);
+    console.log('blob', blob);
 
-    recordRef.current?.appendChild(audio);
+    console.log('recordRef', recordRef);
   };
 
   const handleClearRecording = () => {
@@ -69,8 +78,14 @@ const Tape = ({
   };
 
   useEffect(() => {
+    if (!recordRef.current) return;
+    if (recordRef.current.querySelector('audio')) return;
+  }, [recordRef]);
+
+  useEffect(() => {
     if (!recordingBlob) return;
-    addAudioElement(recordingBlob);
+    addAudioFile(recordingBlob);
+    console.log('recordingBlob', recordingBlob);
     setIsRecorded(true);
   }, [recordingBlob]);
 
@@ -100,34 +115,48 @@ const Tape = ({
 
       {hasAudio && (
         <AudioContainer>
-          {isRecording ? (
-            <>
-              <ClearButton onClick={stopRecording}>
+          <RecordButtonZone>
+            {isRecording ? (
+              <ClearButton
+                variant="clear"
+                onClick={stopRecording}
+                disabled={recordingTime < 3}
+                as="button"
+              >
                 <Icon
                   icon="material-symbols:stop-circle-rounded"
                   color="white"
                   width="32px"
                 />
               </ClearButton>
-            </>
-          ) : (
-            <ClearButton onClick={startRecording} disabled={isRecorded}>
-              <Icon
-                icon="uim:record-audio"
-                color={isRecorded ? '#840000' : '#CD0E00'}
-                width="32px"
-              />
-            </ClearButton>
-          )}
+            ) : (
+              <ClearButton
+                variant="clear"
+                onClick={startRecording}
+                disabled={isRecorded}
+                as="button"
+              >
+                <Icon
+                  icon="uim:record-audio"
+                  color={isRecorded ? '#840000' : '#CD0E00'}
+                  width="32px"
+                />
+              </ClearButton>
+            )}
+          </RecordButtonZone>
           {isRecorded && (
-            <ClearButton onClick={handleClearRecording} disabled={isRecording}>
-              재녹음하기
+            <ClearButton
+              variant="clear"
+              onClick={handleClearRecording}
+              disabled={isRecording}
+              as="button"
+            >
+              <span>재녹음</span>
             </ClearButton>
           )}
-          <Time>{formatTime(recordingTime)}</Time>
-
+          `
           <RecordingContainer>
-            <RecordContainer ref={recordRef} />
+            {<AudioPlayer ref={recordRef} audioLink={url} />}
           </RecordingContainer>
         </AudioContainer>
       )}

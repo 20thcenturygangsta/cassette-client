@@ -1,28 +1,16 @@
 import styled from '@emotion/styled';
+import { ButtonLayout } from 'components/button/style';
 import theme from 'styles/theme';
 
 export const TypeStyle = styled.div`
   font-family: 'Ycomputer-Regular';
 `;
 
-export const RecordContainer = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const ClearButton = styled.button`
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  margin: 0 auto;
+export const ClearButton = styled(ButtonLayout)`
   border-radius: 50%;
   color: ${theme.colors.white};
-  min-width: fit-content;
-  margin-top: 5px;
+  width: 35px;
+  height: 35px;
 
   :disabled {
     cursor: default;
@@ -35,11 +23,6 @@ export const RecordingContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 20px;
-
-  audio {
-    height: 32px;
-    width: 80%;
-  }
 `;
 
 export const Time = styled.div`
@@ -47,6 +30,16 @@ export const Time = styled.div`
   color: ${theme.colors.white};
 `;
 
+export const RecordButtonZone = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 5px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const AudioContainer = styled.div`
+  width: 100%;
   margin-top: 20px;
 `;

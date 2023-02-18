@@ -1,11 +1,18 @@
+import Siren from '@icon/siren.svg';
 import Button from 'components/button';
 import Modal from 'components/modal';
 import ModalPortal from 'components/modal/portal';
 import Tape from 'components/tape';
 import Title from 'components/title';
 import { useState } from 'react';
-import { useGuestInfoStore } from 'store';
+import {
+  useGuestColorStore,
+  useGuestInfoStore,
+  useGuestResponsStore,
+  useRecord,
+} from 'store';
 import { Box } from 'styles/create-tape';
+import { MakeTapeContainer, WarningZone } from 'styles/make-track';
 import theme from 'styles/theme';
 import subInstance from 'utils/api/sub';
 
@@ -13,6 +20,9 @@ const MakeTrack = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [blob, setBlob] = useState<Blob>();
   const { date, userNickname, tapename } = useGuestInfoStore();
+  const { tapeColor } = useGuestColorStore();
+  const { userURL } = useGuestResponsStore();
+  const { recordFile } = useRecord();
 
   const sendTape = () => {
     const fileName = 'temporary file name';
@@ -21,13 +31,20 @@ const MakeTrack = () => {
       formData.append('audio', blob, fileName);
 
       subInstance
-        .createTrack('cassette_blue', 'jjjjjjjjj', '', '', formData)
-        .then(() => {
+        .createTrack(
+          `${tapeColor}`,
+          `${tapename}`,
+          `${userNickname}`,
+          `${userURL}`,
+          formData,
+        )
+        .then((data) => {
+          console.log(data);
           // setModalOpen(true);
         });
-    }
 
-    console.log({ blob });
+      console.log({ blob });
+    }
   };
 
   const closeModal = () => setModalOpen(false);
@@ -38,7 +55,7 @@ const MakeTrack = () => {
   };
 
   return (
-    <div css={{ padding: '163px 24px 0 24px  ' }}>
+    <MakeTapeContainer>
       <ModalPortal closeModal={closeModal}>
         {modalOpen && (
           <Modal
@@ -70,11 +87,18 @@ const MakeTrack = () => {
           setAudio={setBlob}
         />
       </Box>
+      <WarningZone>
+        <Siren />
+        <p>
+          테이프 전송하기를 누르면 주인장에게 녹음테이프가
+          <br /> 바로 전송됩니다. 충분히 확인 후 전송해주세요.
+        </p>
+      </WarningZone>
 
       <Button onClick={handleSendTape} variant="main">
         테이프 전송하기
       </Button>
-    </div>
+    </MakeTapeContainer>
   );
 };
 
