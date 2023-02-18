@@ -4,7 +4,7 @@ import ModalPortal from 'components/modal/portal';
 import Tape from 'components/tape';
 import Title from 'components/title';
 import { useState } from 'react';
-import {  useGuestInfoStore } from 'store';
+import { useGuestInfoStore } from 'store';
 import { Box } from 'styles/create-tape';
 import theme from 'styles/theme';
 import subInstance from 'utils/api/sub';
@@ -15,13 +15,10 @@ const MakeTrack = () => {
   const { date, userNickname, tapename } = useGuestInfoStore();
 
   const sendTape = () => {
-    const formData = new FormData();
-    console.log(blob);
+    const fileName = 'temporary file name';
     if (blob) {
-      //const file = new File([blob], 'fileName', { type: 'audio/webm' });
-      formData.append('audio', blob, 'audio.wav');
-      console.log('blob', blob);
-      console.log(formData);
+      const formData = new FormData();
+      formData.append('audio', blob, fileName);
 
       subInstance
         .createTrack('cassette_blue', 'jjjjjjjjj', '', '', formData)
@@ -34,6 +31,11 @@ const MakeTrack = () => {
   };
 
   const closeModal = () => setModalOpen(false);
+
+  const handleSendTape = () => {
+    sendTape();
+    // setModalOpen(true);
+  };
 
   return (
     <div css={{ padding: '163px 24px 0 24px  ' }}>
@@ -69,13 +71,7 @@ const MakeTrack = () => {
         />
       </Box>
 
-      <Button
-        onClick={
-          () => setModalOpen(true)
-          //sendTape
-        }
-        variant="main"
-      >
+      <Button onClick={handleSendTape} variant="main">
         테이프 전송하기
       </Button>
     </div>
