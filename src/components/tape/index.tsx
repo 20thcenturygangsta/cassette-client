@@ -84,6 +84,13 @@ const Tape = ({
     );
   };
 
+  useEffect(() => {
+    if (recordingTime > 12) {
+      stopRecording();
+      setIsRedording?.(false);
+    }
+  }, [recordingTime]);
+
   return (
     <TypeStyle>
       <TapeSvg
