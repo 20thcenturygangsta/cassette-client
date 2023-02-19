@@ -1,8 +1,11 @@
+import Left from '@icon/left.svg';
 import Siren from '@icon/siren.svg';
+import Button from 'components/button';
 import Modal from 'components/modal';
 import ModalPortal from 'components/modal/portal';
 import Tape from 'components/tape';
 import Title from 'components/title';
+import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction, useState } from 'react';
 import {
   useGuestColorStore,
@@ -11,6 +14,7 @@ import {
 } from 'store';
 import { Box } from 'styles/create-tape';
 import {
+  BackButtonZone,
   MakeTapeContainer,
   SubmitTapeButton,
   WarningZone,
@@ -44,9 +48,14 @@ const MakeTrack = () => {
   };
 
   const closeModal = () => setModalOpen(false);
-
+  const route = useRouter();
   return (
     <MakeTapeContainer>
+      <BackButtonZone>
+        <Button variant="clear" onClick={() => route.back()}>
+          <Left />
+        </Button>
+      </BackButtonZone>
       <ModalPortal closeModal={closeModal}>
         {modalOpen && (
           <Modal

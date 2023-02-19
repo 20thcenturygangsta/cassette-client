@@ -4,6 +4,12 @@ import { ButtonLayout } from 'components/button/style';
 
 import theme from './theme';
 
+export const BackButtonZone = styled.div`
+  position: absolute;
+  top: 70px;
+  left: 24px;
+`;
+
 export const MakeTapeContainer = styled.div`
   margin: 143px 24px 0 24px;
 `;
