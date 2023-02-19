@@ -5,7 +5,7 @@ import { ButtonLayout } from 'components/button/style';
 import theme from './theme';
 
 export const MakeTapeContainer = styled.div`
-  margin: 113px 24px 0 24px;
+  margin: 143px 24px 0 24px;
 `;
 
 export const WarningZone = styled.div<{ firstEntry: boolean }>`

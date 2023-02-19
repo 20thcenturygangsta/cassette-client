@@ -105,7 +105,7 @@ const Tape = ({
           <RecordButtonZone>
             {firstEntry ? (
               <>
-                <Time css={{ marginBottom: '72px' }}>00:00</Time>
+                <Time css={{ marginBottom: '61px' }}>00:00</Time>
                 <ClearButton
                   variant="clear"
                   onClick={() => {
@@ -120,7 +120,7 @@ const Tape = ({
                   <Icon
                     icon="uim:record-audio"
                     color={'#CD0E00'}
-                    width="32px"
+                    width="35px"
                   />
                 </ClearButton>
               </>
@@ -148,7 +148,7 @@ const Tape = ({
                   <Icon
                     icon="material-symbols:stop-circle-rounded"
                     color="white"
-                    width="32px"
+                    width="35px"
                   />
                 </ClearButton>
               </>
@@ -164,7 +164,7 @@ const Tape = ({
                   isOwner={isOwner}
                 />
               </RecordingContainer>
-              <RecordButtonZone css={{ paddingBottom: '48px' }}>
+              <RecordButtonZone css={{ paddingBottom: '39px' }}>
                 <ClearButton
                   variant="clear"
                   onClick={() => {
@@ -178,7 +178,7 @@ const Tape = ({
                   <Icon
                     icon="uim:record-audio"
                     color={'#CD0E00'}
-                    width="32px"
+                    width="35px"
                   />
                 </ClearButton>
               </RecordButtonZone>
