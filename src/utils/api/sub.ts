@@ -60,12 +60,12 @@ const createTrack = (
   return axios({
     method: 'post',
     url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/track`,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
     data: {
       data: { colorCode, title, name, tapeLink },
       file: {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
         file,
       },
     },

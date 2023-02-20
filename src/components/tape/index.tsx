@@ -58,8 +58,6 @@ const Tape = ({
   const addAudioFile = (blob: Blob) => {
     if (!blob) return;
     const url = URL.createObjectURL(blob);
-    const formData = new FormData();
-    formData.append('audio', blob, 'audio.wav');
     setUrl(url);
     setAudio?.(blob);
   };
@@ -72,7 +70,6 @@ const Tape = ({
   useEffect(() => {
     if (!recordingBlob) return;
     addAudioFile(recordingBlob);
-    console.log('recordingBlob', recordingBlob);
     setIsRecorded(true);
   }, [recordingBlob]);
 
@@ -121,7 +118,6 @@ const Tape = ({
                     setFirstEntry?.(false);
                     setIsRedording?.(true);
                   }}
-                  disabled={isRecording}
                   as="button"
                 >
                   <Icon
