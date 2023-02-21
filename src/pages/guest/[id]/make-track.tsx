@@ -33,13 +33,13 @@ const MakeTrack = () => {
   const MAKE_TAPE_URL = `${process.env.NEXT_PUBLIC_CLIENT_URL}`;
 
   const sendTape = () => {
-    const fileName = 'temporary file name';
     if (blob) {
-      // const formData = new FormData();
-      // formData.append('audio', blob, fileName);
+      const audiofile = new File([blob], 'audiofile.wav', {
+        type: 'audio/wav',
+      });
 
       subInstance
-        .createTrack(tapeColor, tapename, userNickname, userURL, blob)
+        .createTrack(tapeColor, tapename, userNickname, userURL, audiofile)
         .then((data) => {
           console.log(data);
           setModalOpen(true);
