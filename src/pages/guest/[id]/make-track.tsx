@@ -35,11 +35,11 @@ const MakeTrack = () => {
   const sendTape = () => {
     const fileName = 'temporary file name';
     if (blob) {
-      const formData = new FormData();
-      formData.append('audio', blob, fileName);
+      // const formData = new FormData();
+      // formData.append('audio', blob, fileName);
 
       subInstance
-        .createTrack(tapeColor, tapename, userNickname, userURL, formData)
+        .createTrack(tapeColor, tapename, userNickname, userURL, blob)
         .then((data) => {
           console.log(data);
           setModalOpen(true);
