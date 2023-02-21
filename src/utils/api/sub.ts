@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Color } from 'types';
-import { Cassette, Tape, TapeResponse } from 'types/serverResponse';
+import { Cassette, Tape, TapeResponse, Track } from 'types/serverResponse';
 
 import instance from './core';
 
@@ -43,7 +43,10 @@ const modifyUseTape = (
 const downloadTape = (id: number) =>
   instance({ url: `/api/v1/tape/download/${id}` });
 
-const getUserTrack = (id: number) => instance({ url: `/api/v1/track/${id}` });
+const getUserTrack = (id: number) =>
+  instance<TapeResponse<Track>, TapeResponse<Track>>({
+    url: `/api/v1/track/${id}`,
+  });
 
 const getOwnerTape = (tapeLink: string) =>
   axios
@@ -55,9 +58,9 @@ const createTrack = (
   title: string,
   name: string,
   tapeLink: string,
-  file: Blob,
+  file: File,
 ) => {
-  const data = [{ colorCode, title, name, tapeLink }];
+  const data = { colorCode, title, name, tapeLink };
   const formData = new FormData();
   const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
   formData.append('file', file);
@@ -67,6 +70,7 @@ const createTrack = (
     method: 'post',
     url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/track`,
     headers: {
+      Accept: 'application/json',
       'Content-Type': 'multipart/form-data',
     },
     data: formData,
