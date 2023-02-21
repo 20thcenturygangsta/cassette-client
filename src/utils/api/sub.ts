@@ -55,20 +55,21 @@ const createTrack = (
   title: string,
   name: string,
   tapeLink: string,
-  file: FormData,
+  file: Blob,
 ) => {
+  const data = [{ colorCode, title, name, tapeLink }];
+  const formData = new FormData();
+  const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+  formData.append('file', file);
+  formData.append('data', blob);
+
   return axios({
     method: 'post',
     url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/track`,
     headers: {
       'Content-Type': 'multipart/form-data',
     },
-    data: {
-      data: { colorCode, title, name, tapeLink },
-      file: {
-        file,
-      },
-    },
+    data: formData,
   });
 };
 
