@@ -1,4 +1,5 @@
 import CheckeRectangle from '@icon/checkeRectangle.svg';
+import Cry from '@icon/cry.svg';
 import Left from '@icon/left.svg';
 import Siren from '@icon/siren.svg';
 import Button from 'components/button';
@@ -28,11 +29,14 @@ const MakeTrack = () => {
   const [blob, setBlob] = useState<Blob>();
   const [firstEntry, setFirstEntry] = useState<boolean>(true);
   const [isRedording, setIsRedording] = useState<boolean>(false);
+  const [fullTape, setFullTape] = useState<boolean>(false);
   const { date, userNickname, tapename } = useGuestInfoStore();
   const { tapeColor } = useGuestColorStore();
   const { userURL } = useGuestResponsStore();
+  const router = useRouter();
+  const { id } = router.query;
   const MAKE_TAPE_URL = `${process.env.NEXT_PUBLIC_CLIENT_URL}`;
-
+  const GUEST_ENTRY_URL = `/guest/${id}/guest-entry`;
   const sendTape = () => {
     if (blob) {
       const audiofile = new File([blob], 'audiofile.wav', {
@@ -41,7 +45,11 @@ const MakeTrack = () => {
 
       subInstance
         .createTrack(tapeColor, tapename, userNickname, userURL, audiofile)
-        .then(() => {
+        .then((data) => {
+          setModalOpen(true);
+        })
+        .catch(() => {
+          setFullTape(true);
           setModalOpen(true);
         });
     }
@@ -59,18 +67,23 @@ const MakeTrack = () => {
       <ModalPortal closeModal={closeModal}>
         {modalOpen && (
           <Modal
-            icon={<CheckeRectangle />}
+            icon={fullTape ? <Cry /> : <CheckeRectangle />}
             title={
-              <>
-                목소리가 녹음된 테이프가
-                <br />
-                전송되었어요!
-              </>
+              fullTape ? (
+                <>테이프를 남길 자리가 없어요!</>
+              ) : (
+                <>
+                  목소리가 녹음된 테이프가
+                  <br />
+                  전송되었어요!
+                </>
+              )
             }
             detail="친구들의 목소리가 담긴 테이프를 갖고싶나요?"
             btnText="내 테이프 만들기"
             link={MAKE_TAPE_URL}
             onClickBtn={closeModal}
+            entryLink={GUEST_ENTRY_URL}
           />
         )}
       </ModalPortal>
