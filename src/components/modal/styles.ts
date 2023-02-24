@@ -6,6 +6,7 @@ export const ModalWrapper = styled.div`
   color: ${theme.colors.white};
   padding: 20px;
   border-radius: 30px 30px 0 0;
+  max-height: 340px;
   font-family: 'Pretendard-Regular';
   display: flex;
   flex-direction: column;
@@ -16,6 +17,7 @@ export const ModalContainer = styled.div`
   position: absolute;
   width: 100%;
   bottom: 0;
+  max-height: 340px;
   z-index: 99999;
 `;
 
@@ -26,6 +28,7 @@ export const ModalContent = styled.div`
 
 export const ModalDimmed = styled.div`
   width: 100%;
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
