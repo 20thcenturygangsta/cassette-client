@@ -3,13 +3,24 @@ import Layout from 'components/layout';
 import ReactQueryWrapper from 'lib/reactQueryWrapper';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Suspense } from 'react';
+import { useRouter } from 'next/router';
+import { Suspense, useEffect } from 'react';
 import { global } from 'styles/globals';
 import theme from 'styles/theme';
+import { getAuthToken } from 'utils/storage/authCookie';
 
 import Custom404 from './404';
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const auth = getAuthToken('accessToken');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (auth && router.pathname === '/') {
+      router.push('/create-tape-completed');
+    }
+  }, []);
+
   return (
     <>
       <Head>
