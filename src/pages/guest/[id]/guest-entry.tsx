@@ -29,13 +29,18 @@ const GuestEntry = () => {
 
   useEffect(() => {
     if (id) {
-      subInstance.getOwnerTape(id as string).then((data) => {
-        setOwnerName(data?.result?.name),
-          setOwnerTapeTitle(data?.result?.title),
-          setOwnerTapeColor(data?.result?.colorCode),
-          setHasfullTape(data?.result?.hasAudioLink),
-          setDate(data?.timestamp.slice(2, 10).replaceAll('-', '.'));
-      });
+      subInstance
+        .getOwnerTape(id as string)
+        .then((data) => {
+          setOwnerName(data?.result?.name),
+            setOwnerTapeTitle(data?.result?.title),
+            setOwnerTapeColor(data?.result?.colorCode),
+            setHasfullTape(data?.result?.hasAudioLink),
+            setDate(data?.timestamp.slice(2, 10).replaceAll('-', '.'));
+        })
+        .catch((e) => {
+          route.push('/404');
+        });
     }
   }, [id, ownerName, ownerTapeTitle, setResponsUser]);
 
