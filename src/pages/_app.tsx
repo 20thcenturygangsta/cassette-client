@@ -7,6 +7,8 @@ import { Suspense } from 'react';
 import { global } from 'styles/globals';
 import theme from 'styles/theme';
 
+import Custom404 from './404';
+
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
@@ -88,15 +90,15 @@ const App = ({ Component, pageProps }: AppProps) => {
         />
       </Head>
       {/* <ReactQueryWrapper> */}
-        <Suspense>
-          <ThemeProvider theme={theme}>
-            <Global styles={global} />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <div id="modal" />
-          </ThemeProvider>
-        </Suspense>
+      <Suspense fallback={<Custom404 />}>
+        <ThemeProvider theme={theme}>
+          <Global styles={global} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <div id="modal" />
+        </ThemeProvider>
+      </Suspense>
       {/* </ReactQueryWrapper> */}
     </>
   );
