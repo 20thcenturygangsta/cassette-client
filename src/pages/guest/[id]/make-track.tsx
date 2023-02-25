@@ -19,6 +19,7 @@ import {
 } from 'styles/make-track';
 import theme from 'styles/theme';
 import subInstance from 'utils/api/sub';
+import audioInstance from 'utils/audio/audio';
 
 const MakeTrack = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -34,19 +35,38 @@ const MakeTrack = () => {
   const GUEST_ENTRY_URL = `/guest/${id}/guest-entry`;
   const sendTape = () => {
     if (blob) {
-      const audiofile = new File([blob], 'audiofile.wav', {
-        type: 'audio/wav',
+      audioInstance.getWaveBlob(blob, false).then((res) => {
+        console.log(blob);
+        console.log(res);
+        const audiofile = new File([res], 'audiofile.wav', {
+          type: 'audio/wav',
+        });
+        subInstance
+          .createTrack(
+            tapeColor,
+            tapename,
+            userNickname,
+            id as string,
+            audiofile,
+          )
+          .then(() => {
+            setModalOpen(true);
+          })
+          .catch(() => {
+            setFullTape(true);
+            setModalOpen(true);
+          });
       });
 
-      subInstance
-        .createTrack(tapeColor, tapename, userNickname, id as string, audiofile)
-        .then(() => {
-          setModalOpen(true);
-        })
-        .catch(() => {
-          setFullTape(true);
-          setModalOpen(true);
-        });
+      // subInstance
+      //   .createTrack(tapeColor, tapename, userNickname, id as string, audiofile)
+      //   .then(() => {
+      //     setModalOpen(true);
+      //   })
+      //   .catch(() => {
+      //     setFullTape(true);
+      //     setModalOpen(true);
+      //   });
     }
   };
 
