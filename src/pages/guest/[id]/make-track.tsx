@@ -22,6 +22,7 @@ import subInstance from 'utils/api/sub';
 import audioInstance from 'utils/audio/audio';
 
 const MakeTrack = () => {
+  const route = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   const [blob, setBlob] = useState<Blob>();
   const [firstEntry, setFirstEntry] = useState<boolean>(true);
@@ -33,6 +34,9 @@ const MakeTrack = () => {
   const { id } = router.query;
   const MAKE_TAPE_URL = `${process.env.NEXT_PUBLIC_CLIENT_URL}`;
   const GUEST_ENTRY_URL = `/guest/${id}/guest-entry`;
+
+  const closeModal = () => setModalOpen(false);
+
   const sendTape = () => {
     if (blob) {
       audioInstance.getWaveBlob(blob, false).then((res) => {
@@ -42,13 +46,7 @@ const MakeTrack = () => {
           type: 'audio/wav',
         });
         subInstance
-          .createTrack(
-            tapeColor,
-            tapename,
-            userNickname,
-            id as string,
-            audiofile,
-          )
+          .createTrack(tapeColor, tapename, userNickname, `${id}`, audiofile)
           .then(() => {
             setModalOpen(true);
           })
@@ -57,21 +55,9 @@ const MakeTrack = () => {
             setModalOpen(true);
           });
       });
-
-      // subInstance
-      //   .createTrack(tapeColor, tapename, userNickname, id as string, audiofile)
-      //   .then(() => {
-      //     setModalOpen(true);
-      //   })
-      //   .catch(() => {
-      //     setFullTape(true);
-      //     setModalOpen(true);
-      //   });
     }
   };
 
-  const closeModal = () => setModalOpen(false);
-  const route = useRouter();
   return (
     <MakeTapeContainer>
       <BackButtonZone>
