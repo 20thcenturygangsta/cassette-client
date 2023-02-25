@@ -1,15 +1,27 @@
-function _writeStringToArray(aString: any, targetArray: any, offset: any) {
+function _writeStringToArray(
+  aString: string,
+  targetArray: Uint8Array,
+  offset: number,
+) {
   for (let i = 0; i < aString.length; ++i)
     targetArray[offset + i] = aString.charCodeAt(i);
 }
 
-function _writeInt16ToArray(aNumber: any, targetArray: any, offset: any) {
+function _writeInt16ToArray(
+  aNumber: number,
+  targetArray: Uint8Array,
+  offset: number,
+) {
   aNumber = Math.floor(aNumber);
   targetArray[offset + 0] = aNumber & 255; // byte 1
   targetArray[offset + 1] = (aNumber >> 8) & 255; // byte 2
 }
 
-function _writeInt32ToArray(aNumber: any, targetArray: any, offset: any) {
+function _writeInt32ToArray(
+  aNumber: number,
+  targetArray: Uint8Array,
+  offset: number,
+) {
   aNumber = Math.floor(aNumber);
   targetArray[offset + 0] = aNumber & 255; // byte 1
   targetArray[offset + 1] = (aNumber >> 8) & 255; // byte 2
@@ -19,7 +31,7 @@ function _writeInt32ToArray(aNumber: any, targetArray: any, offset: any) {
 
 // Return the bits of the float as a 32-bit integer value.  This
 // produces the raw bits; no intepretation of the value is done.
-function _floatBits(f: any) {
+function _floatBits(f: number): number {
   const buf = new ArrayBuffer(4);
   new Float32Array(buf)[0] = f;
   const bits = new Uint32Array(buf)[0];
@@ -28,11 +40,11 @@ function _floatBits(f: any) {
 }
 
 function _writeAudioBufferToArray(
-  audioBuffer: any,
-  targetArray: any,
-  offset: any,
-  bitDepth: any,
-) {
+  audioBuffer: AudioBuffer,
+  targetArray: Uint8Array,
+  offset: number,
+  bitDepth: number,
+): void {
   let index = 0,
     channel = 0;
   const length = audioBuffer.length;
@@ -65,7 +77,10 @@ function _writeAudioBufferToArray(
 }
 
 // Converts the Blob data to AudioBuffer
-async function _getAudioBuffer(blobData, contextOptions = undefined) {
+async function _getAudioBuffer(
+  blobData: Blob | ArrayBuffer,
+  contextOptions?: AudioContextOptions,
+): Promise<AudioBuffer> {
   let blob = blobData;
 
   if (!(blob instanceof Blob)) blob = new Blob([blobData]);
@@ -83,17 +98,10 @@ async function _getAudioBuffer(blobData, contextOptions = undefined) {
   return audioBuffer;
 }
 
-/**
- *
- * @param {Blob | Blob[]} blobData - Blob or Blob[] to be converted to audio/wave Blob
- * @param {boolean} as32BitFloat - Convert to 16-bit or 32-bit file, default 16-bit
- * @param {AudioContextOptions} contextOptions - optiosn needs to be used for encoding
- * @returns
- */
 async function getWaveBlob(
-  blobData: any,
-  as32BitFloat: any,
-  contextOptions = undefined,
+  blobData: Blob,
+  as32BitFloat: boolean,
+  contextOptions?: AudioContextOptions,
 ) {
   const audioBuffer = await _getAudioBuffer(blobData, contextOptions);
 
