@@ -1,24 +1,44 @@
+import FileDownload from '@icon/fileDownload.svg';
+import Left from '@icon/left.svg';
 import PauseIcon from '@icon/pause.svg';
 import Play from '@icon/play.svg';
-import { forwardRef, RefObject, useEffect, useRef, useState } from 'react';
+import Right from '@icon/right.svg';
+import { forwardRef, useEffect, useRef, useState } from 'react';
+import theme from 'styles/theme';
 
 import {
   Audio,
+  AudioButton,
   AudioCOntainer,
   ButtonZone,
-  PlaynPauseButton,
+  DownloadButton,
   PlayZone,
   ProgressBar,
+  TrackControlZone,
 } from './style';
 
 interface AudioPlayerProps {
   audioLink: string;
   isOwner?: boolean;
   disabled?: boolean;
+  onhandleBackward?: () => void;
+  onhandleForward?: () => void;
+  onhandleDownload?: () => void;
 }
 
 const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
-  ({ audioLink, isOwner = true, disabled, ...rest }, ref) => {
+  (
+    {
+      audioLink,
+      isOwner = true,
+      disabled,
+      onhandleBackward,
+      onhandleForward,
+      onhandleDownload,
+      ...rest
+    },
+    ref,
+  ) => {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [duration, setDuration] = useState<number>(0);
     const [currentTime, setCurrentTime] = useState<number>(0);
@@ -41,6 +61,12 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
         audio?.removeEventListener('durationchange', handleDurationChange);
       };
     }, [audioPlayer]);
+
+    useEffect(() => {
+      currentTime === 0 || Math.ceil(duration) === currentTime
+        ? setIsPlaying(false)
+        : setIsPlaying(true);
+    }, [currentTime, duration]);
 
     const calculateTime = (secs: number) => {
       const minutes = Math.floor(secs / 60);
@@ -104,7 +130,6 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
                 ref={progressBar}
                 onChange={changeRange}
               />
-
               <span>
                 {duration
                   ? isFinite(duration) &&
@@ -114,19 +139,48 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
               </span>
             </PlayZone>
             <ButtonZone>
-              <PlaynPauseButton
+              <TrackControlZone>
+                <AudioButton
+                  variant="clear"
+                  as="button"
+                  disabled={disabled}
+                  onClick={onhandleForward}
+                  aria-label="앞으로 이동하기"
+                >
+                  <Left />
+                </AudioButton>
+                <AudioButton
+                  variant="clear"
+                  onClick={togglePlayPause}
+                  as="button"
+                  disabled={disabled}
+                  aria-label={isPlaying ? '일시정지하기' : '재생하기'}
+                >
+                  {isPlaying ? (
+                    <PauseIcon width="24" height="24" />
+                  ) : (
+                    <Play width="24" height="24" />
+                  )}
+                </AudioButton>
+                <AudioButton
+                  variant="clear"
+                  as="button"
+                  disabled={disabled}
+                  onClick={onhandleBackward}
+                  aria-label="뒤로 이동하기"
+                >
+                  <Right fill={theme.colors.gray_300} />
+                </AudioButton>
+              </TrackControlZone>
+              <DownloadButton
                 variant="clear"
-                onClick={togglePlayPause}
                 as="button"
                 disabled={disabled}
+                onClick={onhandleDownload}
+                aria-label="다운로드하기"
               >
-                {isPlaying &&
-                (currentTime === 0 || currentTime !== duration) ? (
-                  <PauseIcon width="24" height="24" />
-                ) : (
-                  <Play width="24" height="24" />
-                )}
-              </PlaynPauseButton>
+                <FileDownload />
+              </DownloadButton>
             </ButtonZone>
           </>
         ) : (
@@ -134,18 +188,18 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
             <PlayZone>
               <span>{calculateTime(currentTime)}</span>
               <ButtonZone isGuest={true}>
-                <PlaynPauseButton
+                <AudioButton
                   variant="clear"
                   onClick={togglePlayPause}
                   as="button"
+                  aria-label={isPlaying ? '일시정지하기' : '재생하기'}
                 >
-                  {isPlaying &&
-                  (currentTime === 0 || currentTime !== duration) ? (
+                  {isPlaying ? (
                     <PauseIcon width="20" height="20" />
                   ) : (
                     <Play width="20" height="20" />
                   )}
-                </PlaynPauseButton>
+                </AudioButton>
               </ButtonZone>
               <ProgressBar
                 type="range"

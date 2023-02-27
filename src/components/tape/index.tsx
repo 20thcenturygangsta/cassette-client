@@ -72,16 +72,8 @@ const Tape = ({
     setIsRecorded(true);
   }, [recordingBlob]);
 
-  const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return (
-      minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds
-    );
-  };
-
   useEffect(() => {
-    if (recordingTime > 12) {
+    if (Math.ceil(recordingTime) === 13) {
       stopRecording();
       setIsRedording?.(false);
     }
@@ -98,10 +90,10 @@ const Tape = ({
         color={color}
         isOwner={false}
       />
-
-      {audioLink && (
+      {/* TODO: 추후에 연결할 것 */}
+      {/* {audioLink && (
         <button onClick={() => toggle?.()}>{playing ? '정지' : '시작'}</button>
-      )}
+      )} */}
 
       {hasAudio && (
         <AudioContainer>
@@ -118,6 +110,7 @@ const Tape = ({
                     setIsRedording?.(true);
                   }}
                   as="button"
+                  aria-label="녹음하기"
                 >
                   <Icon
                     icon="uim:record-audio"
@@ -146,6 +139,7 @@ const Tape = ({
                   }}
                   disabled={recordingTime < 3}
                   as="button"
+                  aria-label="녹음 중지하기"
                 >
                   <Icon
                     icon="material-symbols:stop-circle-rounded"
@@ -176,6 +170,7 @@ const Tape = ({
                   }}
                   disabled={isRecording}
                   as="button"
+                  aria-label="재녹음하기"
                 >
                   <Icon
                     icon="uim:record-audio"

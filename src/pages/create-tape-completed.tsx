@@ -4,6 +4,7 @@ import AudioPlayer from 'components/audio';
 import Button from 'components/button';
 import MenuLayout from 'components/menu';
 import Tape from 'components/tape';
+import EmptyTape from 'components/tape/emptyTape';
 import TapeSVG from 'components/tape/tape';
 import Title from 'components/title';
 import ToastUI from 'components/Toast';
@@ -14,6 +15,7 @@ import {
   BottomZone,
   Box,
   CompletedTapeContainer,
+  CurrentName,
   GuestTrack,
   PopupText,
   TapeCount,
@@ -27,7 +29,7 @@ import { TapeResponse, Track } from 'types/serverResponse';
 import subInstance from 'utils/api/sub';
 
 const CreateTapeCompleted = () => {
-  const { setResponsUser, userURL } = useResponsUserStore();
+  const { setResponsUser, userURL, tapeId } = useResponsUserStore();
   const { userNickname, tapename, setUserData, date } = useUserStore();
   const { setTapeColor, tapeColor } = useColorStore();
   const [isCopied, onCopy] = useCopy();
@@ -35,34 +37,121 @@ const CreateTapeCompleted = () => {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [currentTapeId, setCurrentTapeId] = useState<number | null>(null);
   const [currentTrack, setCurrentTrack] = useState<TapeResponse<Track>>();
+  const [fullTapeLink, setFullTapeLink] = useState<string | null>('');
+  const [isFullTape, setIsFullTape] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentFile, setCurrentFile] = useState<string>('');
+
+  const GUEST_URL = `${process.env.NEXT_PUBLIC_CLIENT_URL}/guest/${userURL}/guest-entry`;
+  const MAX_NUMBER = 99999999;
+
+  useEffect(() => {
+    subInstance.getUserTape().then((data) => {
+      const tapeData = data?.result[0];
+      if (tapeData) {
+        setUserData(tapeData['name'], tapeData['title']);
+        setResponsUser(tapeData['tapeLink'], tapeData['id']);
+        setTapeColor(tapeData['colorCode']);
+        setTracks(tapeData.tracks);
+        setFullTapeLink(tapeData['audioLink']);
+      }
+    });
+  }, [setResponsUser, setUserData, setTapeColor]);
+
+  useEffect(() => {
+    if (currentTapeId && currentTapeId !== (tapeId as number) * MAX_NUMBER)
+      subInstance
+        .getUserTrack(currentTapeId)
+        .then((data) => setCurrentTrack(data));
+  }, [currentTapeId]);
+
+  useEffect(() => {
+    if (currentIndex === -1) return;
+    const index = tracks.findIndex((data) => data.trackId === currentIndex);
+    setCurrentIndex(index);
+  }, [setCurrentIndex]);
 
   const handleCopyClipBoard = (text: string) => {
     onCopy(text);
   };
 
-  const GUEST_URL = `${process.env.NEXT_PUBLIC_CLIENT_URL}/guest/${userURL}/guest-entry`;
-
-  useEffect(() => {
-    subInstance.getUserTape().then((data) => {
-      console.log(data);
-      const tapeData = data?.result[0];
-      if (tapeData) {
-        setUserData(tapeData['name'], tapeData['title']);
-        setResponsUser(tapeData['tapeLink']);
-        setTapeColor(tapeData['colorCode']);
-        setTracks(tapeData.tracks);
-      }
-    });
-  }, [setResponsUser, setUserData, setTapeColor]);
-
-  // TODO: server, client tape fill 매치되지 않는 에러 해결하기
-
   useEffect(() => {
     if (currentTapeId)
-      subInstance
-        .getUserTrack(currentTapeId)
-        .then((data) => setCurrentTrack(data));
-  }, [currentTapeId]);
+      !isFullTape && currentTapeId
+        ? setCurrentFile(currentTrack?.result.audioLink as string)
+        : setCurrentFile(fullTapeLink as string);
+  }, [currentTapeId, currentTrack?.result.audioLink, fullTapeLink, isFullTape]);
+
+  const MoveForward = () => {
+    if (currentIndex <= 0 || tracks.length - 1 < currentIndex) return;
+    if (fullTapeLink && isFullTape) {
+      setCurrentIndex(11);
+      setCurrentTapeId(tracks[11].trackId);
+      setIsFullTape(false);
+    } else {
+      const forwardId = tracks[currentIndex - 1].trackId;
+      const forwardIndex = tracks.findIndex(
+        (data) => data.trackId === forwardId,
+      );
+
+      setCurrentTapeId(forwardId);
+      setCurrentIndex(forwardIndex);
+    }
+  };
+
+  const MoveBackward = () => {
+    if (currentIndex < 0 || tracks.length - 1 < currentIndex) return;
+    if (fullTapeLink && currentIndex === 11) {
+      setCurrentTapeId((tapeId as number) * MAX_NUMBER);
+      setIsFullTape(true);
+    } else {
+      if (tracks.length - 1 === currentIndex) return;
+      const backwardId = tracks[currentIndex + 1].trackId;
+      const backwardIndex = tracks.findIndex(
+        (data) => data.trackId === backwardId,
+      );
+
+      setCurrentTapeId(backwardId);
+      setCurrentIndex(backwardIndex);
+      setIsFullTape(false);
+    }
+  };
+
+  const onClickTape = (id: number, isFull: boolean, index: number) => {
+    if (tracks.length < 3) return;
+
+    if (id === (tapeId as number) * MAX_NUMBER && tracks.length !== 12) return;
+
+    setCurrentTapeId(id);
+    isFull
+      ? setIsFullTape(true)
+      : (setIsFullTape(false), setCurrentIndex(index));
+  };
+
+  // 서버에서 파일데이터 받는 로직 임시 주석
+  // const downloadAudioFile = () => {
+  //   // isFullTape
+  //   //   ? tapeId &&
+  //   //     subInstance.downloadTape(tapeId).then((data) => setDownloadFile(data))
+  //   //   : currentTapeId &&
+  //   //     subInstance
+  //   //       .downloadTrack(currentTapeId)
+  //   //       .then((data) => setDownloadFile(data));
+
+  //   handleDownloadClick(currentTrack?.result.audioLink as string);
+
+  // };
+
+  const handleDownloadClick = () => {
+    if (currentFile) {
+      const downloadLink = document.createElement('a');
+      downloadLink.href = currentFile;
+      downloadLink.download = 'audio.wav';
+      downloadLink.target = '_blank';
+      downloadLink.rel = 'noopener noreferrer';
+      window.open(downloadLink.href);
+    }
+  };
 
   return (
     <CompletedTapeContainer>
@@ -70,52 +159,93 @@ const CreateTapeCompleted = () => {
       <Box>
         <Title name={userNickname} color={theme.colors.white} />
       </Box>
-      <TapeCount>
-        {tracks.length === 0 || tracks.length === 1 ? (
-          <span>{tracks.length} tape</span>
+      <CurrentName>
+        {!isFullTape && currentTapeId ? (
+          <span>{currentTrack?.result.name}</span>
         ) : (
-          <span>{tracks.length} tapes</span>
+          <div></div>
         )}
-        <span> / 12 tapes</span>
-      </TapeCount>
+      </CurrentName>
       <TrackBox isShown={tracks.length > 2}>
         <TapeSVG
-          title={currentTapeId ? currentTrack?.result.title : tapename}
+          title={
+            !isFullTape && currentTapeId ? currentTrack?.result.title : tapename
+          }
           date={
-            currentTapeId
+            !isFullTape && currentTapeId
               ? currentTrack?.timestamp.slice(2, 10).replaceAll('-', '.')
               : date
           }
-          color={currentTapeId ? currentTrack?.result.colorCode : tapeColor}
+          color={
+            !isFullTape && currentTapeId
+              ? currentTrack?.result.colorCode
+              : tapeColor
+          }
           sec="144"
         />
       </TrackBox>
 
       <AudioPlayer
-        disabled={tracks.length < 3}
-        audioLink={
-          currentTapeId ? (currentTrack?.result.audioLink as string) : ''
-        }
+        disabled={!currentTapeId || tracks.length < 3}
+        audioLink={currentFile}
+        onhandleDownload={handleDownloadClick}
+        onhandleBackward={MoveBackward}
+        onhandleForward={MoveForward}
       />
+      <TapeCount>
+        {tracks.length === 0 || tracks.length === 1 ? (
+          <span>Total {tracks.length}</span>
+        ) : (
+          <span> Total {tracks.length}</span>
+        )}
+        <span>/12 </span>
+      </TapeCount>
       <TrackCollection>
-        {tracks.map((data) => (
+        {tracks
+          .filter((data) => data.trackId !== currentTapeId)
+          .map((data, index) => (
+            <>
+              <GuestTrack
+                key={data.trackId}
+                isShown={tracks.length > 2}
+                onClick={() => onClickTape(data.trackId, false, index)}
+              >
+                <>
+                  <Tape
+                    width="88"
+                    height="58"
+                    title={data.title}
+                    color={data.colorCode}
+                    audioLink={tracks.length > 2 ? data.audioLink : ''}
+                  />
+                  <TrackName>{data.name}</TrackName>
+                </>
+              </GuestTrack>
+            </>
+          ))}
+        <EmptyTape
+          isShown={tracks.length > 2}
+          emptyNum={tracks.length}
+          MaxNum={12}
+        ></EmptyTape>
+        {currentTapeId !== (tapeId as number) * MAX_NUMBER ? (
           <GuestTrack
-            key={data.trackId}
-            isShown={tracks.length > 2}
-            onClick={() => {
-              setCurrentTapeId(data.trackId);
-            }}
+            key={(tapeId as number) * MAX_NUMBER}
+            onClick={() =>
+              onClickTape((tapeId as number) * MAX_NUMBER, true, 12)
+            }
+            isShown={tracks.length === 12}
           >
             <Tape
               width="88"
               height="58"
-              title={data.title}
-              color={data.colorCode}
-              audioLink={tracks.length > 2 ? data.audioLink : ''}
+              title={tapename}
+              color={tapeColor}
+              audioLink={fullTapeLink as string}
             />
-            <TrackName>{data.name}</TrackName>
+            <TrackName>{userNickname}</TrackName>
           </GuestTrack>
-        ))}
+        ) : null}
       </TrackCollection>
 
       {tracks.length < 3 && (
