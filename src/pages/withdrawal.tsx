@@ -18,6 +18,7 @@ import {
 } from 'styles/withdrawal';
 import { WithdrawalType } from 'types';
 import mainInstance from 'utils/api/main';
+import { removeAuthToken } from 'utils/storage/authCookie';
 
 const Withdrawal = () => {
   const [checked, setChecked] = useState<boolean>(false);
@@ -97,8 +98,13 @@ const Withdrawal = () => {
           as="button"
           aria-label="탈퇴하기"
           onClick={() => {
-            mainInstance.deleteUser(dropType as WithdrawalType, opinion);
+            mainInstance
+              .deleteUser(dropType as WithdrawalType, opinion)
+              .then(() => {
+                removeAuthToken('accessToken'), removeAuthToken('refreshToken');
+              });
             window.localStorage.removeItem('persist');
+
             router.push('/');
           }}
         >

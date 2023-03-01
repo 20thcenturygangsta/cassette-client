@@ -1,5 +1,9 @@
-import axios from 'axios';
-import { getAuthToken, setAuthToken } from 'utils/storage/authCookie';
+import axios, { AxiosError } from 'axios';
+import {
+  getAuthToken,
+  removeAuthToken,
+  setAuthToken,
+} from 'utils/storage/authCookie';
 
 import mainInstance from '../main';
 
@@ -20,16 +24,15 @@ instance.interceptors.request.use(
         config.headers['env'] = `${process.env.NEXT_PUBLIC_HEADERS_ENV}`;
       }
     } catch (e: any) {
-      console.error('Authorization or env 삽입 실패');
+      window.location.href = '/';
     }
 
     return config;
   },
 
   (error) => {
-    console.log(error);
-
-    return Promise.reject(error);
+    Promise.reject(error);
+    window.location.href = '/';
   },
 );
 
@@ -48,17 +51,29 @@ instance.interceptors.response.use(
     const res = response.data;
     return res;
   },
-  (error) => {
-    const code = error.code;
-    const status = error.response?.status;
+  async (error: AxiosError) => {
+    try {
+      const code = error.code;
+      const status = error.response?.status;
+      const refreshToken = await getAuthToken('refreshToken');
 
-    const refreshToken = getAuthToken('refreshToken');
-    if ((status === 401 || code === 'EMPTY_TOKEN') && refreshToken) {
-      mainInstance.getNewToken(refreshToken).then(({ data }) => {
-        if (data.result.accessToken) {
-          setAuthToken('accessToken', data.data.result.accessToken);
-        }
-      });
+      if ((status === 401 || code === 'EXPIRED_JWT_TOKEN') && refreshToken) {
+        mainInstance
+          .getNewToken(refreshToken)
+          .then(({ data }) => {
+            if (data.result.accessToken) {
+              setAuthToken('accessToken', data.data.result.accessToken);
+            }
+          })
+          .catch((e: any) => {
+            removeAuthToken('accessToken');
+            removeAuthToken('refreshToken');
+            window.location.href = '/';
+          });
+      }
+    } catch (e: any) {
+      window.location.href = '/';
+      Promise.reject(error);
     }
   },
 );

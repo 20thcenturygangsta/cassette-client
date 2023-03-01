@@ -46,12 +46,12 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
     const audioPlayer = useRef<HTMLAudioElement>(null);
     const progressBar = useRef<HTMLInputElement>(null);
     const animationRef = useRef<number>();
-
     useEffect(() => {
       const audio = audioPlayer.current;
 
       const handleDurationChange = () => {
-        setDuration(Math.floor(audio?.duration as number));
+        if (!audio?.duration) return;
+        setDuration(audio?.duration);
         progressBar?.current?.setAttribute('max', `${audio?.duration}`);
       };
 
@@ -63,7 +63,7 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
     }, [audioPlayer]);
 
     useEffect(() => {
-      currentTime === 0 || Math.ceil(duration) === currentTime
+      currentTime === 0 || duration === currentTime
         ? setIsPlaying(false)
         : setIsPlaying(true);
     }, [currentTime, duration]);
@@ -71,7 +71,7 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
     const calculateTime = (secs: number) => {
       const minutes = Math.floor(secs / 60);
       const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-      const seconds = Math.floor(secs % 60);
+      const seconds = Math.round(secs % 60);
       const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
       return `${returnedMinutes}:${returnedSeconds}`;
     };
@@ -114,7 +114,7 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
         '--movewidth',
         `${(currentTime / duration) * 100}%`,
       );
-      setCurrentTime(parseFloat(progressBar?.current?.value ?? '0'));
+      setCurrentTime(currentTime);
     };
 
     return (
