@@ -31,8 +31,8 @@ instance.interceptors.request.use(
   },
 
   (error) => {
-    Promise.reject(error);
     window.location.href = '/';
+    Promise.reject(error);
   },
 );
 
@@ -56,13 +56,20 @@ instance.interceptors.response.use(
       const code = error.code;
       const status = error.response?.status;
       const refreshToken = await getAuthToken('refreshToken');
-
-      if ((status === 401 || code === 'EXPIRED_JWT_TOKEN') && refreshToken) {
+      if (!refreshToken) return;
+      if (status === 401 || code === 'EXPIRED_JWT_TOKEN') {
         mainInstance
           .getNewToken(refreshToken)
           .then(({ data }) => {
             if (data.result.accessToken) {
-              setAuthToken('accessToken', data.data.result.accessToken);
+              setAuthToken('accessToken', data.result.accessToken);
+            }
+
+            if (error.config) {
+              error.config.headers[
+                'Authorization'
+              ] = `Bearer ${data.result.accessToken}`;
+              return instance(error.config);
             }
           })
           .catch((e: any) => {
@@ -73,6 +80,7 @@ instance.interceptors.response.use(
       }
     } catch (e: any) {
       window.location.href = '/';
+
       Promise.reject(error);
     }
   },
