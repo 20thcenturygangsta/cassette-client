@@ -25,6 +25,7 @@ import {
   TrackName,
 } from 'styles/create-tape-completed';
 import theme from 'styles/theme';
+import { Color } from 'types';
 import { TapeResponse, Track } from 'types/serverResponse';
 import subInstance from 'utils/api/sub';
 
@@ -56,6 +57,7 @@ const CreateTapeCompleted = () => {
         setFullTapeLink(tapeData['audioLink']);
         setDate(tapeData['createAt'].slice(2, 10).replaceAll('-', '.'));
       }
+      console.log(tapeColor);
     });
   }, [setResponsUser, setUserData, setTapeColor, setDate]);
 
@@ -170,7 +172,7 @@ const CreateTapeCompleted = () => {
           color={
             !isFullTape && currentTapeId
               ? currentTrack?.result.colorCode
-              : tapeColor
+              : (tapeColor as Color)
           }
           sec="144"
         />
@@ -230,7 +232,7 @@ const CreateTapeCompleted = () => {
               width="88"
               height="58"
               title={tapename}
-              color={tapeColor}
+              color={tapeColor as Color}
               audioLink={fullTapeLink as string}
             />
             <TrackName>{userNickname}</TrackName>
