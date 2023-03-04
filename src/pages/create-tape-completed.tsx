@@ -40,6 +40,7 @@ const CreateTapeCompleted = () => {
   const [fullTapeLink, setFullTapeLink] = useState<string | null>('');
   const [isFullTape, setIsFullTape] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const { setDate } = useUserStore();
 
   const GUEST_URL = `${process.env.NEXT_PUBLIC_CLIENT_URL}/guest/${userURL}/guest-entry`;
   const MAX_NUMBER = 99999999;
@@ -53,9 +54,10 @@ const CreateTapeCompleted = () => {
         setTapeColor(tapeData['colorCode']);
         setTracks(tapeData.tracks);
         setFullTapeLink(tapeData['audioLink']);
+        setDate(tapeData['createAt'].slice(2, 10).replaceAll('-', '.'));
       }
     });
-  }, [setResponsUser, setUserData, setTapeColor]);
+  }, [setResponsUser, setUserData, setTapeColor, setDate]);
 
   useEffect(() => {
     if (currentTapeId && currentTapeId !== (tapeId as number) * MAX_NUMBER)
@@ -118,7 +120,6 @@ const CreateTapeCompleted = () => {
 
   const onClickTape = (id: number, isFull: boolean, index: number) => {
     if (tracks.length < 3) return;
-
     if (id === (tapeId as number) * MAX_NUMBER && tracks.length !== 12) return;
 
     setCurrentTapeId(id);
@@ -126,20 +127,6 @@ const CreateTapeCompleted = () => {
       ? setIsFullTape(true)
       : (setIsFullTape(false), setCurrentIndex(index));
   };
-
-  // 서버에서 파일데이터 받는 로직 임시 주석
-  // const downloadAudioFile = () => {
-  //   // isFullTape
-  //   //   ? tapeId &&
-  //   //     subInstance.downloadTape(tapeId).then((data) => setDownloadFile(data))
-  //   //   : currentTapeId &&
-  //   //     subInstance
-  //   //       .downloadTrack(currentTapeId)
-  //   //       .then((data) => setDownloadFile(data));
-
-  //   handleDownloadClick(currentTrack?.result.audioLink as string);
-
-  // };
 
   const handleDownloadClick = () => {
     if (currentTapeId) {
@@ -177,7 +164,7 @@ const CreateTapeCompleted = () => {
           }
           date={
             !isFullTape && currentTapeId
-              ? currentTrack?.timestamp.slice(2, 10).replaceAll('-', '.')
+              ? currentTrack?.result.createAt.slice(2, 10).replaceAll('-', '.')
               : date
           }
           color={
@@ -201,12 +188,7 @@ const CreateTapeCompleted = () => {
         onhandleForward={MoveForward}
       />
       <TapeCount>
-        {tracks.length === 0 || tracks.length === 1 ? (
-          <span>Total {tracks.length}</span>
-        ) : (
-          <span> Total {tracks.length}</span>
-        )}
-        <span>/12 </span>
+        <span> Total {tracks.length}/12</span>
       </TapeCount>
       <TrackCollection>
         {tracks
