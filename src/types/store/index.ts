@@ -37,8 +37,6 @@ export interface DropdownStore {
 
 export interface PlayStore {
   isPlayAudio: boolean;
-  initialization: boolean;
 
   setIsPlayAudio: (isPlayAudio: boolean) => void;
-  setInitialization: (initialization: boolean) => void;
 }

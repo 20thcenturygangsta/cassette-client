@@ -121,13 +121,9 @@ export const dropdownStore = create<DropdownStore>()(
 export const usePlayStore = create<PlayStore>()(
   devtools((set) => ({
     isPlayAudio: false,
-    initialization: true,
 
     setIsPlayAudio: (isPlayAudio) => {
       set(() => ({ isPlayAudio }));
-    },
-    setInitialization: (initialization) => {
-      set(() => ({ initialization }));
     },
   })),
 );
