@@ -74,6 +74,24 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
     }, [audioPlayer]);
 
     useEffect(() => {
+      const progressCircle = progressBar.current;
+
+      const handlePresse = () => {
+        setIsPlaying(false);
+        setIsPlayAudio(false);
+        setTempPause(true);
+      };
+      if (tempPause) {
+        progressCircle?.addEventListener('mousedown', handlePresse);
+        progressCircle?.addEventListener('mouseup', handlePresse);
+      }
+      return () => {
+        progressCircle?.removeEventListener('mousedown', handlePresse);
+        progressCircle?.removeEventListener('mouseup', handlePresse);
+      };
+    }, [tempPause]);
+
+    useEffect(() => {
       currentTime === 0 || duration === currentTime
         ? (setIsPlaying(false), setTempPause(false))
         : setIsPlaying(true);
