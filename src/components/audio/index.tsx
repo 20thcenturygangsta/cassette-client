@@ -6,6 +6,7 @@ import Right from '@icon/right.svg';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { usePlayStore } from 'store';
 import theme from 'styles/theme';
+import calculateTime from 'utils/audio/calculateTime';
 
 import {
   Audio,
@@ -22,6 +23,8 @@ interface AudioPlayerProps {
   audioLink: string;
   isOwner?: boolean;
   disabled?: boolean;
+  preventMovingBack?: boolean;
+  preventMovingForward?: boolean;
   onhandleBackward?: () => void;
   onhandleForward?: () => void;
   onhandleDownload?: () => void;
@@ -36,6 +39,8 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
       onhandleBackward,
       onhandleForward,
       onhandleDownload,
+      preventMovingBack,
+      preventMovingForward,
       ...rest
     },
     ref,
@@ -44,6 +49,7 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
     const [duration, setDuration] = useState<number>(0);
     const [currentTime, setCurrentTime] = useState<number>(0);
     const [tempPause, setTempPause] = useState<boolean>(false);
+    const [currentAudioLink, setCurrentAudioLink] = useState<string>('');
 
     const audioPlayer = useRef<HTMLAudioElement>(null);
     const progressBar = useRef<HTMLInputElement>(null);
@@ -77,13 +83,11 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
       isPlaying && !tempPause ? setIsPlayAudio(true) : setIsPlayAudio(false);
     }, [isPlaying, setIsPlayAudio, tempPause]);
 
-    const calculateTime = (secs: number) => {
-      const minutes = Math.floor(secs / 60);
-      const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-      const seconds = Math.round(secs % 60);
-      const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-      return `${returnedMinutes}:${returnedSeconds}`;
-    };
+    useEffect(() => {
+      const link = audioLink;
+      setCurrentAudioLink(audioLink);
+      if (currentAudioLink !== link) resetAudio();
+    }, [currentAudioLink, audioLink]);
 
     const togglePlayPause = () => {
       const prevValue = isPlaying;
@@ -128,6 +132,13 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
       setCurrentTime(currentTime);
     };
 
+    const resetAudio = () => {
+      progressBar?.current?.style.setProperty('--movewidth', `${0}%`);
+      setCurrentTime(0);
+      setIsPlayAudio(false);
+      setTempPause(false);
+    };
+
     return (
       <AudioCOntainer ref={ref} disabled={disabled as boolean}>
         <Audio ref={audioPlayer} src={audioLink} preload="metadata" />
@@ -155,8 +166,11 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
                 <AudioButton
                   variant="clear"
                   as="button"
-                  disabled={disabled}
-                  onClick={onhandleForward}
+                  disabled={disabled || preventMovingForward}
+                  onClick={() => {
+                    onhandleForward && onhandleForward();
+                    resetAudio();
+                  }}
                   aria-label="앞으로 이동하기"
                 >
                   <Left />
@@ -179,8 +193,11 @@ const AudioPlayer = forwardRef<HTMLDivElement, AudioPlayerProps>(
                 <AudioButton
                   variant="clear"
                   as="button"
-                  disabled={disabled}
-                  onClick={onhandleBackward}
+                  disabled={disabled || preventMovingBack}
+                  onClick={() => {
+                    onhandleBackward && onhandleBackward();
+                    resetAudio();
+                  }}
                   aria-label="뒤로 이동하기"
                 >
                   <Right fill={theme.colors.gray_300} />
