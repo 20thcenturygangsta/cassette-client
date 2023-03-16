@@ -56,7 +56,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 목소리로 담아보내요. "
           />
           <link rel="manifest" href="/manifest.json" />
-          <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+          <link rel="preload" as="font" href="https://cdn.jsdelivr.net" />
           <link
             href="favicons/favicon-16x16.png"
             rel="icon"
