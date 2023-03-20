@@ -18,6 +18,7 @@ const MenuLayout = ({ name }: MenuLayoutProps) => {
         <ButtonLayout
           variant="clear"
           as="button"
+          aria-label="메뉴 열기"
           onClick={() => {
             setOpenMenu('open');
           }}
