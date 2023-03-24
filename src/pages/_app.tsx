@@ -128,18 +128,18 @@ const App = ({ Component, pageProps }: AppProps) => {
       </html>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          {/* <Suspense fallback={<Custom404 />}> */}
-          {hydrated && (
-            <ThemeProvider theme={theme}>
-              <Global styles={global} />
+          <Suspense fallback={<Custom404 />}>
+            {hydrated && (
+              <ThemeProvider theme={theme}>
+                <Global styles={global} />
 
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-              <div id="modal" />
-            </ThemeProvider>
-          )}
-          {/* </Suspense> */}
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+                <div id="modal" />
+              </ThemeProvider>
+            )}
+          </Suspense>
         </Hydrate>
       </QueryClientProvider>
     </>
