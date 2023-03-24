@@ -88,7 +88,11 @@ const App = ({ Component, pageProps }: AppProps) => {
           />
           <link rel="apple-touch-icon" href="favicons/apple-icon.jpg"></link>
           <meta name="msapplication-TileColor" content="#242729"></meta>
-
+          <link
+            href="splashscreens/iphone5_splash.jpg"
+            media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+            rel="apple-touch-startup-image"
+          />
           <link
             href="splashscreens/iphone6_splash.jpg"
             media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
