@@ -2316,7 +2316,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
+"@types/prop-types@npm:*, @types/prop-types@npm:^15":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
   checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
@@ -3178,6 +3178,7 @@ __metadata:
     "@types/fontfaceobserver": ^2
     "@types/gtag.js": ^0.0.12
     "@types/node": ^18.11.17
+    "@types/prop-types": ^15
     "@types/react": ^18.0.26
     "@types/react-dom": ^18.0.9
     "@typescript-eslint/eslint-plugin": ^5.46.1
@@ -3197,6 +3198,7 @@ __metadata:
     next: 13.0.6
     next-compose-plugins: ^2.2.1
     next-pwa: ^5.6.0
+    prop-types: ^15.8.1
     react: next
     react-audio-voice-recorder: ^1.0.4
     react-cookie: ^4.1.1
