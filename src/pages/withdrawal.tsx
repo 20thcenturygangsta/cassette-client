@@ -1,12 +1,13 @@
 import Close from '@icon/close.svg';
+import SpinnerIcon from 'components/button/spinner';
 import CheckBox from 'components/checkBox';
 import Dropdown from 'components/dropDown';
-import SpinnerIcon from 'components/spinner';
 import TapeSvg from 'components/tape/tape';
 import Textarea from 'components/textarea';
 import { WITHDRAWAL } from 'constants/withdrawal';
 import useLoading from 'hooks/useLoading';
 import { GetServerSidePropsContext } from 'next';
+
 import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
 import { dropdownStore, useUserStore } from 'store';
@@ -24,6 +25,7 @@ import mainInstance from 'utils/api/main';
 import { removeAuthToken } from 'utils/storage/authCookie';
 
 export const getServerSideProps = (context: GetServerSidePropsContext) => {
+
   const { accessToken } = context.req.cookies;
 
   if (!accessToken) {
@@ -36,6 +38,7 @@ export const getServerSideProps = (context: GetServerSidePropsContext) => {
   }
   return { props: {} };
 };
+
 
 const Withdrawal = () => {
   const [checked, setChecked] = useState<boolean>(false);
