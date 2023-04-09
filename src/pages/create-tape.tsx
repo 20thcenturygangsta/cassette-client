@@ -6,12 +6,12 @@ import Title from 'components/title';
 import { MAX_LENGTH } from 'constants/maxTextLen';
 import useInput from 'hooks/useInput';
 import useLoading from 'hooks/useLoading';
-import { NextConfig } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useUserStore } from 'store';
 import { Box, Info, InputBox } from 'styles/create-tape';
 
-export const getServerSideProps = (context: NextConfig) => {
+export const getServerSideProps = (context: GetServerSidePropsContext) => {
   const { accessToken } = context.req.cookies;
 
   if (!accessToken) {

@@ -4,7 +4,7 @@ import SpinnerIcon from 'components/spinner';
 import TapeSVG from 'components/tape/tape';
 import Title from 'components/title';
 import useLoading from 'hooks/useLoading';
-import { NextConfig } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useColorStore, useResponsUserStore, useUserStore } from 'store';
 import { DecoContainer, DecoZone, Middie } from 'styles/decorate-tape';
@@ -13,7 +13,7 @@ import subInstance from 'utils/api/sub';
 
 import theme from '../styles/theme';
 
-export const getServerSideProps = (context: NextConfig) => {
+export const getServerSideProps = (context: GetServerSidePropsContext) => {
   const { accessToken } = context.req.cookies;
 
   if (!accessToken) {
