@@ -6,7 +6,6 @@ import TapeSvg from 'components/tape/tape';
 import Textarea from 'components/textarea';
 import { WITHDRAWAL } from 'constants/withdrawal';
 import useLoading from 'hooks/useLoading';
-import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
 import { dropdownStore, useUserStore } from 'store';
@@ -21,21 +20,14 @@ import {
 } from 'styles/withdrawal';
 import { WithdrawalType } from 'types';
 import mainInstance from 'utils/api/main';
+import { withAuthServerSideProps } from 'utils/ssr/withAuth';
 import { removeAuthToken } from 'utils/storage/authCookie';
 
-export const getServerSideProps = (context: GetServerSidePropsContext) => {
-  const { accessToken } = context.req.cookies;
-
-  if (!accessToken) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-  return { props: {} };
-};
+export const getServerSideProps = withAuthServerSideProps(() => {
+  return {
+    props: {},
+  };
+});
 
 const Withdrawal = () => {
   const [checked, setChecked] = useState<boolean>(false);
