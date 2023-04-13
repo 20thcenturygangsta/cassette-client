@@ -3,7 +3,7 @@ import Copy from '@icon/copy.svg';
 import { useQuery } from '@tanstack/react-query';
 import AudioPlayer from 'components/audio';
 import Button from 'components/button';
-import { SpinnerView } from 'components/button/spinner';
+import { SpinnerView } from 'components/spinner';
 import Tape from 'components/tape';
 import EmptyTape from 'components/tape/emptyTape';
 import TapeSVG from 'components/tape/tape';

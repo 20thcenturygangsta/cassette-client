@@ -1,7 +1,7 @@
 import Close from '@icon/close.svg';
-import SpinnerIcon from 'components/button/spinner';
 import CheckBox from 'components/checkBox';
 import Dropdown from 'components/dropDown';
+import SpinnerIcon from 'components/spinner';
 import TapeSvg from 'components/tape/tape';
 import Textarea from 'components/textarea';
 import { WITHDRAWAL } from 'constants/withdrawal';

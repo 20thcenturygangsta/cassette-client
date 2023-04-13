@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import SpinnerIcon, { SpinnerView } from 'components/button/spinner';
 import { ButtonLayout } from 'components/button/style';
 import Input from 'components/input';
+import SpinnerIcon, { SpinnerView } from 'components/spinner';
 import TapeSVG from 'components/tape/tape';
 import { TitleName, TitleWrapper } from 'components/title/styles';
 import { MAX_LENGTH } from 'constants/maxTextLen';
